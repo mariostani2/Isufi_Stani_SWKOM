@@ -6,8 +6,11 @@ on:
     branches: [ "master" ]
     
 jobs:
+   deploykot:
+    name: Deploy1
+    runs-on: ubuntu-latest
    deploy:
-    needs: MAIN CI
+    needs: Main CI
     name: Deploy
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
