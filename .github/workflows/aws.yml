@@ -17,7 +17,7 @@ jobs:
         #Download the artifact which was uploaded in the build's job
         uses: dawidd6/action-download-artifact@v2
         with:
-           workflow: maven.yml
+           workflow: build.yml
            name: artifact
       #Deploy the artifact (JAR) into AWS Beanstalk
       - name: Deploy to EB
