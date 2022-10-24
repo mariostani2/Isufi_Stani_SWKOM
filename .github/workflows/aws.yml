@@ -2,15 +2,13 @@
 name: CD
 
 on:
-  push:
-    branches: [ "master" ]
+  workflow_run:
+    workflows: ["Main CI"]
+    types:
+      - completed
     
 jobs:
-   deploykot:
-    name: Deploy1
-    runs-on: ubuntu-latest
    deploy:
-    needs: Main CI
     name: Deploy
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
