@@ -1,9 +1,12 @@
-package at.fhtw.swen3.services;
+package at.fhtw.swen3.services.impl;
 
-import java.util.Map;
-import at.fhtw.swen3.persistence.Order;
+import at.fhtw.swen3.persistence.Error;
+import at.fhtw.swen3.persistence.NewParcelInfo;
+import at.fhtw.swen3.persistence.Parcel;
+import at.fhtw.swen3.persistence.TrackingInformation;
 
 
+import at.fhtw.swen3.services.ParcelApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,14 +30,14 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-10-18T00:22:09.916911Z[Etc/UTC]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-10-24T08:44:03.675534Z[Etc/UTC]")
 @Controller
-public class StoreApiController implements StoreApi {
+public class ParcelApiController implements ParcelApi {
 
     private final NativeWebRequest request;
 
     @Autowired
-    public StoreApiController(NativeWebRequest request) {
+    public ParcelApiController(NativeWebRequest request) {
         this.request = request;
     }
 

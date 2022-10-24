@@ -1,9 +1,10 @@
-package at.fhtw.swen3.services;
+package at.fhtw.swen3.services.impl;
 
 import at.fhtw.swen3.persistence.ModelApiResponse;
 import at.fhtw.swen3.persistence.Pet;
 
 
+import at.fhtw.swen3.services.PetApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

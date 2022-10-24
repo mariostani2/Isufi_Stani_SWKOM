@@ -1,10 +1,11 @@
-package at.fhtw.swen3.services;
+package at.fhtw.swen3.services.impl;
 
-import at.fhtw.swen3.persistence.Error;
-import at.fhtw.swen3.persistence.Hop;
-import at.fhtw.swen3.persistence.Warehouse;
+import java.util.List;
+import java.time.OffsetDateTime;
+import at.fhtw.swen3.persistence.User;
 
 
+import at.fhtw.swen3.services.UserApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,14 +29,14 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-10-24T08:44:03.675534Z[Etc/UTC]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-10-18T00:22:09.916911Z[Etc/UTC]")
 @Controller
-public class WarehouseApiController implements WarehouseApi {
+public class UserApiController implements UserApi {
 
     private final NativeWebRequest request;
 
     @Autowired
-    public WarehouseApiController(NativeWebRequest request) {
+    public UserApiController(NativeWebRequest request) {
         this.request = request;
     }
 
