@@ -3,7 +3,7 @@ info:
   contact:
     name: SKS
     url: http://www.technikum-wien.at/
-  title: Parcel Logistics Service
+  title: ParcelEntity Logistics Service
   version: 1.22.1
 servers:
 - url: /
@@ -76,7 +76,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/trackingInformation'
-          description: "Parcel exists, here's the tracking information."
+          description: "ParcelEntity exists, here's the tracking information."
         "400":
           content:
             application/json:
@@ -85,7 +85,7 @@ paths:
           description: The operation failed due to an error.
         "404":
           content: {}
-          description: Parcel does not exist with this tracking ID.
+          description: ParcelEntity does not exist with this tracking ID.
       summary: |
         Find the latest state of a parcel by its tracking ID.
       tags:
