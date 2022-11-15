@@ -26,7 +26,4 @@ public class RecipientEntity {
     @Pattern(regexp = "^[A-Z][A-Za-z\\s0-9-]+$")
     private String city;
 
-
-
-
 }

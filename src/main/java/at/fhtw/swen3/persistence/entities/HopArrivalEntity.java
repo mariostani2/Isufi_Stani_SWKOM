@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 import java.time.OffsetDateTime;
 
 @Getter @Setter
-public class HopArrival {
+public class HopArrivalEntity {
 
     @Pattern(regexp = "^[A-Z]{4}\\d{1,4}$")
     private String code;

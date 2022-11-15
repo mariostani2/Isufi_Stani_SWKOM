@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import javax.annotation.Generated;
 
 /**
- * HopArrival
+ * HopArrivalEntity
  */
 
 @JsonTypeName("hopArrival")
@@ -110,7 +110,7 @@ public class HopArrival {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class HopArrival {\n");
+    sb.append("class HopArrivalEntity {\n");
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    dateTime: ").append(toIndentedString(dateTime)).append("\n");

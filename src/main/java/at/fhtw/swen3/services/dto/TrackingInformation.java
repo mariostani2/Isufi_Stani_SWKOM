@@ -11,6 +11,8 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 
 import javax.annotation.Generated;
@@ -21,6 +23,7 @@ import javax.annotation.Generated;
 
 @JsonTypeName("trackingInformation")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-10-24T08:44:03.675534Z[Etc/UTC]")
+@NoArgsConstructor
 public class TrackingInformation {
 
   /**
