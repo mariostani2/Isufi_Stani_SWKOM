@@ -14,7 +14,6 @@ import java.util.Optional;
 @Getter @Setter
 public class RecipientEntity {
     @NotNull(message = "Name cannot be null")
-    @Pattern(regexp = "(Austria)||(Österreich)" ,groups = RecipientEntity.class)
     private String country;
     @NotNull(message = "Name cannot be null")
     @Pattern(regexp = "^[A-Z][A-Za-z\\s0-9-]+$")
