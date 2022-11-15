@@ -45,20 +45,32 @@ public class ValidationTests {
     }
 
     @Test
-    void recipientEntityValidationTest(){
+    void recipientEntityValidationAustriaTest(){
         RecipientEntity recipient= new RecipientEntity();
-        recipient.setName("fsd");
-        recipient.setCity("asdf"); //validator violation
-        recipient.setCountry(""); //validator violation
-        recipient.setPostalCode(""); //validator violation
-        recipient.setStreet(""); //validator violation
+        recipient.setName("Mario");
+        recipient.setCity("Vienna");
+        recipient.setCountry("Austria");
+        recipient.setPostalCode("A-1080");
+        recipient.setStreet("Laudongasse 36");
 
-        Set<ConstraintViolation<RecipientEntity>> violations = validator.validate(recipient);
-        for (ConstraintViolation<RecipientEntity> violation : violations) {
-        System.out.println(violation.getMessage());
-        }
-       assertEquals(4,violations.size());
+       assertEquals(true,recipient.isValid());
 
+    }
+
+    @Test
+    void recipientEntityValidationOesterreichTest(){
+        RecipientEntity recipient= new RecipientEntity();
+        recipient.setName("Mario");
+        recipient.setCountry("Österreich");
+        assertEquals(false,recipient.isValid());
+
+    }
+
+    @Test
+    void recipientEntityValidationNotAustriaTest(){
+        RecipientEntity recipient= new RecipientEntity();
+        recipient.setCountry("Germany");
+        assertEquals(true,recipient.isValid());
 
     }
 
