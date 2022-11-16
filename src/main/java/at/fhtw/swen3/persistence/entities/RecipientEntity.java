@@ -1,10 +1,10 @@
 package at.fhtw.swen3.persistence.entities;
 
-import at.fhtw.swen3.services.dto.Address;
+
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
+import javax.persistence.Entity;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -17,6 +17,7 @@ import java.util.Set;
 
 
 @Getter @Setter
+@Entity
 public class RecipientEntity {
     @NotNull(message = "Country cannot be null")
     private String country;
