@@ -10,35 +10,35 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-16T20:34:55+0100",
+    date = "2022-11-17T00:02:46+0100",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.1 (Oracle Corporation)"
 )
 public class WarehouseNextHopsMapperImpl implements WarehouseNextHopsMapper {
 
     @Override
-    public WarehouseNextHops entityToDto(WarehouseNextHopsEntity author) {
-        if ( author == null ) {
+    public WarehouseNextHops entityToDto(WarehouseNextHopsEntity entity) {
+        if ( entity == null ) {
             return null;
         }
 
         WarehouseNextHops warehouseNextHops = new WarehouseNextHops();
 
-        warehouseNextHops.setTraveltimeMins( author.getTraveltimeMins() );
-        warehouseNextHops.setHop( hopEntityToHop( author.getHop() ) );
+        warehouseNextHops.setTraveltimeMins( entity.getTraveltimeMins() );
+        warehouseNextHops.setHop( hopEntityToHop( entity.getHop() ) );
 
         return warehouseNextHops;
     }
 
     @Override
-    public WarehouseNextHopsEntity dtoToEntity(WarehouseNextHops authorDto) {
-        if ( authorDto == null ) {
+    public WarehouseNextHopsEntity dtoToEntity(WarehouseNextHops dto) {
+        if ( dto == null ) {
             return null;
         }
 
         WarehouseNextHopsEntity warehouseNextHopsEntity = new WarehouseNextHopsEntity();
 
-        warehouseNextHopsEntity.setTraveltimeMins( authorDto.getTraveltimeMins() );
-        warehouseNextHopsEntity.setHop( hopToHopEntity( authorDto.getHop() ) );
+        warehouseNextHopsEntity.setTraveltimeMins( dto.getTraveltimeMins() );
+        warehouseNextHopsEntity.setHop( hopToHopEntity( dto.getHop() ) );
 
         return warehouseNextHopsEntity;
     }

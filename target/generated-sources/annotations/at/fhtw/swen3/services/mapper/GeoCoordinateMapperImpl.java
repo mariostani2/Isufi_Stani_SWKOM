@@ -6,35 +6,35 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-16T20:34:55+0100",
+    date = "2022-11-17T00:02:47+0100",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.1 (Oracle Corporation)"
 )
 public class GeoCoordinateMapperImpl implements GeoCoordinateMapper {
 
     @Override
-    public GeoCoordinate entityToDto(GeoCoordinateEntity author) {
-        if ( author == null ) {
+    public GeoCoordinate entityToDto(GeoCoordinateEntity entity) {
+        if ( entity == null ) {
             return null;
         }
 
         GeoCoordinate geoCoordinate = new GeoCoordinate();
 
-        geoCoordinate.setLat( author.getLat() );
-        geoCoordinate.setLon( author.getLon() );
+        geoCoordinate.setLat( entity.getLat() );
+        geoCoordinate.setLon( entity.getLon() );
 
         return geoCoordinate;
     }
 
     @Override
-    public GeoCoordinateEntity dtoToEntity(GeoCoordinate authorDto) {
-        if ( authorDto == null ) {
+    public GeoCoordinateEntity dtoToEntity(GeoCoordinate dto) {
+        if ( dto == null ) {
             return null;
         }
 
         GeoCoordinateEntity geoCoordinateEntity = new GeoCoordinateEntity();
 
-        geoCoordinateEntity.setLat( authorDto.getLat() );
-        geoCoordinateEntity.setLon( authorDto.getLon() );
+        geoCoordinateEntity.setLat( dto.getLat() );
+        geoCoordinateEntity.setLon( dto.getLon() );
 
         return geoCoordinateEntity;
     }

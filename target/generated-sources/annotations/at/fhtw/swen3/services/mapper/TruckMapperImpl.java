@@ -6,35 +6,35 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-16T20:34:55+0100",
+    date = "2022-11-17T00:02:46+0100",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.1 (Oracle Corporation)"
 )
 public class TruckMapperImpl implements TruckMapper {
 
     @Override
-    public Truck entityToDto(TruckEntity author) {
-        if ( author == null ) {
+    public Truck entityToDto(TruckEntity entity) {
+        if ( entity == null ) {
             return null;
         }
 
         Truck truck = new Truck();
 
-        truck.setRegionGeoJson( author.getRegionGeoJson() );
-        truck.setNumberPlate( author.getNumberPlate() );
+        truck.setRegionGeoJson( entity.getRegionGeoJson() );
+        truck.setNumberPlate( entity.getNumberPlate() );
 
         return truck;
     }
 
     @Override
-    public TruckEntity dtoToEntity(Truck authorDto) {
-        if ( authorDto == null ) {
+    public TruckEntity dtoToEntity(Truck dto) {
+        if ( dto == null ) {
             return null;
         }
 
         TruckEntity truckEntity = new TruckEntity();
 
-        truckEntity.setRegionGeoJson( authorDto.getRegionGeoJson() );
-        truckEntity.setNumberPlate( authorDto.getNumberPlate() );
+        truckEntity.setRegionGeoJson( dto.getRegionGeoJson() );
+        truckEntity.setNumberPlate( dto.getNumberPlate() );
 
         return truckEntity;
     }

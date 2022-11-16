@@ -8,43 +8,43 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-16T20:34:55+0100",
+    date = "2022-11-17T00:02:47+0100",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.1 (Oracle Corporation)"
 )
 public class HopMapperImpl implements HopMapper {
 
     @Override
-    public Hop entityToDto(HopEntity author) {
-        if ( author == null ) {
+    public Hop entityToDto(HopEntity entity) {
+        if ( entity == null ) {
             return null;
         }
 
         Hop hop = new Hop();
 
-        hop.setHopType( author.getHopType() );
-        hop.setCode( author.getCode() );
-        hop.setDescription( author.getDescription() );
-        hop.setProcessingDelayMins( author.getProcessingDelayMins() );
-        hop.setLocationName( author.getLocationName() );
-        hop.setLocationCoordinates( geoCoordinateEntityToGeoCoordinate( author.getLocationCoordinates() ) );
+        hop.setHopType( entity.getHopType() );
+        hop.setCode( entity.getCode() );
+        hop.setDescription( entity.getDescription() );
+        hop.setProcessingDelayMins( entity.getProcessingDelayMins() );
+        hop.setLocationName( entity.getLocationName() );
+        hop.setLocationCoordinates( geoCoordinateEntityToGeoCoordinate( entity.getLocationCoordinates() ) );
 
         return hop;
     }
 
     @Override
-    public HopEntity dtoToEntity(Hop authorDto) {
-        if ( authorDto == null ) {
+    public HopEntity dtoToEntity(Hop dto) {
+        if ( dto == null ) {
             return null;
         }
 
         HopEntity hopEntity = new HopEntity();
 
-        hopEntity.setHopType( authorDto.getHopType() );
-        hopEntity.setCode( authorDto.getCode() );
-        hopEntity.setDescription( authorDto.getDescription() );
-        hopEntity.setProcessingDelayMins( authorDto.getProcessingDelayMins() );
-        hopEntity.setLocationName( authorDto.getLocationName() );
-        hopEntity.setLocationCoordinates( geoCoordinateToGeoCoordinateEntity( authorDto.getLocationCoordinates() ) );
+        hopEntity.setHopType( dto.getHopType() );
+        hopEntity.setCode( dto.getCode() );
+        hopEntity.setDescription( dto.getDescription() );
+        hopEntity.setProcessingDelayMins( dto.getProcessingDelayMins() );
+        hopEntity.setLocationName( dto.getLocationName() );
+        hopEntity.setLocationCoordinates( geoCoordinateToGeoCoordinateEntity( dto.getLocationCoordinates() ) );
 
         return hopEntity;
     }

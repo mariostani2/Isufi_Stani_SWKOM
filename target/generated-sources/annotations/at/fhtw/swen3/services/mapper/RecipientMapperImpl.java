@@ -6,41 +6,41 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-16T20:34:55+0100",
+    date = "2022-11-17T00:02:47+0100",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.1 (Oracle Corporation)"
 )
 public class RecipientMapperImpl implements RecipientMapper {
 
     @Override
-    public Recipient entityToDto(RecipientEntity author) {
-        if ( author == null ) {
+    public Recipient entityToDto(RecipientEntity entity) {
+        if ( entity == null ) {
             return null;
         }
 
         Recipient recipient = new Recipient();
 
-        recipient.setName( author.getName() );
-        recipient.setStreet( author.getStreet() );
-        recipient.setPostalCode( author.getPostalCode() );
-        recipient.setCity( author.getCity() );
-        recipient.setCountry( author.getCountry() );
+        recipient.setName( entity.getName() );
+        recipient.setStreet( entity.getStreet() );
+        recipient.setPostalCode( entity.getPostalCode() );
+        recipient.setCity( entity.getCity() );
+        recipient.setCountry( entity.getCountry() );
 
         return recipient;
     }
 
     @Override
-    public RecipientEntity dtoToEntity(Recipient authorDto) {
-        if ( authorDto == null ) {
+    public RecipientEntity dtoToEntity(Recipient dto) {
+        if ( dto == null ) {
             return null;
         }
 
         RecipientEntity recipientEntity = new RecipientEntity();
 
-        recipientEntity.setCountry( authorDto.getCountry() );
-        recipientEntity.setName( authorDto.getName() );
-        recipientEntity.setStreet( authorDto.getStreet() );
-        recipientEntity.setPostalCode( authorDto.getPostalCode() );
-        recipientEntity.setCity( authorDto.getCity() );
+        recipientEntity.setCountry( dto.getCountry() );
+        recipientEntity.setName( dto.getName() );
+        recipientEntity.setStreet( dto.getStreet() );
+        recipientEntity.setPostalCode( dto.getPostalCode() );
+        recipientEntity.setCity( dto.getCity() );
 
         return recipientEntity;
     }

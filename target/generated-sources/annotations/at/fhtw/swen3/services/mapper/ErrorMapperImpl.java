@@ -6,33 +6,33 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-16T20:34:55+0100",
+    date = "2022-11-17T00:02:46+0100",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.1 (Oracle Corporation)"
 )
 public class ErrorMapperImpl implements ErrorMapper {
 
     @Override
-    public Error entityToDto(ErrorEntity author) {
-        if ( author == null ) {
+    public Error entityToDto(ErrorEntity entity) {
+        if ( entity == null ) {
             return null;
         }
 
         Error error = new Error();
 
-        error.setErrorMessage( author.getErrorMessage() );
+        error.setErrorMessage( entity.getErrorMessage() );
 
         return error;
     }
 
     @Override
-    public ErrorEntity dtoToEntity(Error authorDto) {
-        if ( authorDto == null ) {
+    public ErrorEntity dtoToEntity(Error dto) {
+        if ( dto == null ) {
             return null;
         }
 
         ErrorEntity errorEntity = new ErrorEntity();
 
-        errorEntity.setErrorMessage( authorDto.getErrorMessage() );
+        errorEntity.setErrorMessage( dto.getErrorMessage() );
 
         return errorEntity;
     }

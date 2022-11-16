@@ -14,47 +14,47 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-16T20:34:55+0100",
+    date = "2022-11-17T00:02:47+0100",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.1 (Oracle Corporation)"
 )
 public class WarehouseMapperImpl implements WarehouseMapper {
 
     @Override
-    public Warehouse entityToDto(WarehouseEntity author) {
-        if ( author == null ) {
+    public Warehouse entityToDto(WarehouseEntity entity) {
+        if ( entity == null ) {
             return null;
         }
 
         Warehouse warehouse = new Warehouse();
 
-        warehouse.hopType( author.getHopType() );
-        warehouse.code( author.getCode() );
-        warehouse.description( author.getDescription() );
-        warehouse.processingDelayMins( author.getProcessingDelayMins() );
-        warehouse.locationName( author.getLocationName() );
-        warehouse.locationCoordinates( geoCoordinateEntityToGeoCoordinate( author.getLocationCoordinates() ) );
-        warehouse.setLevel( author.getLevel() );
-        warehouse.setNextHops( warehouseNextHopsEntityListToWarehouseNextHopsList( author.getNextHops() ) );
+        warehouse.hopType( entity.getHopType() );
+        warehouse.code( entity.getCode() );
+        warehouse.description( entity.getDescription() );
+        warehouse.processingDelayMins( entity.getProcessingDelayMins() );
+        warehouse.locationName( entity.getLocationName() );
+        warehouse.locationCoordinates( geoCoordinateEntityToGeoCoordinate( entity.getLocationCoordinates() ) );
+        warehouse.setLevel( entity.getLevel() );
+        warehouse.setNextHops( warehouseNextHopsEntityListToWarehouseNextHopsList( entity.getNextHops() ) );
 
         return warehouse;
     }
 
     @Override
-    public WarehouseEntity dtoToEntity(Warehouse authorDto) {
-        if ( authorDto == null ) {
+    public WarehouseEntity dtoToEntity(Warehouse dto) {
+        if ( dto == null ) {
             return null;
         }
 
         WarehouseEntity warehouseEntity = new WarehouseEntity();
 
-        warehouseEntity.setHopType( authorDto.getHopType() );
-        warehouseEntity.setCode( authorDto.getCode() );
-        warehouseEntity.setDescription( authorDto.getDescription() );
-        warehouseEntity.setProcessingDelayMins( authorDto.getProcessingDelayMins() );
-        warehouseEntity.setLocationName( authorDto.getLocationName() );
-        warehouseEntity.setLocationCoordinates( geoCoordinateToGeoCoordinateEntity( authorDto.getLocationCoordinates() ) );
-        warehouseEntity.setLevel( authorDto.getLevel() );
-        warehouseEntity.setNextHops( warehouseNextHopsListToWarehouseNextHopsEntityList( authorDto.getNextHops() ) );
+        warehouseEntity.setHopType( dto.getHopType() );
+        warehouseEntity.setCode( dto.getCode() );
+        warehouseEntity.setDescription( dto.getDescription() );
+        warehouseEntity.setProcessingDelayMins( dto.getProcessingDelayMins() );
+        warehouseEntity.setLocationName( dto.getLocationName() );
+        warehouseEntity.setLocationCoordinates( geoCoordinateToGeoCoordinateEntity( dto.getLocationCoordinates() ) );
+        warehouseEntity.setLevel( dto.getLevel() );
+        warehouseEntity.setNextHops( warehouseNextHopsListToWarehouseNextHopsEntityList( dto.getNextHops() ) );
 
         return warehouseEntity;
     }

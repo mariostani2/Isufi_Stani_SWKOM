@@ -1,7 +1,7 @@
 package at.fhtw.swen3.services.mapper;
 
 public interface BaseMapper<EN, DTO> {
-    DTO entityToDto(EN author);
+    DTO entityToDto(EN entity);
 
-    EN dtoToEntity(DTO authorDto);
+    EN dtoToEntity(DTO dto);
 }
