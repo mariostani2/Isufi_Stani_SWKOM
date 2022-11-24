@@ -1,7 +1,7 @@
-package at.fhtw.swen3.services.impl;
+package at.fhtw.swen3.controller;
 
 
-import at.fhtw.swen3.services.WarehouseApi;
+import at.fhtw.swen3.controller.rest.PetApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -9,14 +9,14 @@ import org.springframework.web.context.request.NativeWebRequest;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-10-24T08:44:03.675534Z[Etc/UTC]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-10-18T00:22:09.916911Z[Etc/UTC]")
 @Controller
-public class WarehouseApiController implements WarehouseApi {
+public class PetApiController implements PetApi {
 
     private final NativeWebRequest request;
 
     @Autowired
-    public WarehouseApiController(NativeWebRequest request) {
+    public PetApiController(NativeWebRequest request) {
         this.request = request;
     }
 

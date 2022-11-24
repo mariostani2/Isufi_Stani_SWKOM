@@ -3,10 +3,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-package at.fhtw.swen3.services;
+package at.fhtw.swen3.controller.rest;
 
 import java.util.List;
 
+import at.fhtw.swen3.util.ApiUtil;
 import at.fhtw.swen3.services.dto.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
