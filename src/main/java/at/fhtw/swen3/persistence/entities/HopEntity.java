@@ -36,7 +36,6 @@ public class HopEntity {
     private String locationName;
 
     @NotNull
-    @Column
     @OneToOne
     private GeoCoordinateEntity locationCoordinates;
 

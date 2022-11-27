@@ -1,8 +1,11 @@
 package at.fhtw.swen3.services.mapper;
 
 import at.fhtw.swen3.persistence.entities.HopArrivalEntity;
+import at.fhtw.swen3.persistence.entities.HopArrivalEntity.HopArrivalEntityBuilder;
 import at.fhtw.swen3.persistence.entities.ParcelEntity;
+import at.fhtw.swen3.persistence.entities.ParcelEntity.ParcelEntityBuilder;
 import at.fhtw.swen3.persistence.entities.RecipientEntity;
+import at.fhtw.swen3.persistence.entities.RecipientEntity.RecipientEntityBuilder;
 import at.fhtw.swen3.services.dto.HopArrival;
 import at.fhtw.swen3.services.dto.NewParcelInfo;
 import at.fhtw.swen3.services.dto.Parcel;
@@ -14,7 +17,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-24T16:21:49+0100",
+    date = "2022-11-27T16:29:25+0100",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.1.1 (Oracle Corporation)"
 )
 public class ParcelMapperImpl implements ParcelMapper {
@@ -25,23 +28,23 @@ public class ParcelMapperImpl implements ParcelMapper {
             return null;
         }
 
-        ParcelEntity parcelEntity = new ParcelEntity();
+        ParcelEntityBuilder parcelEntity = ParcelEntity.builder();
 
         if ( parcel != null ) {
-            parcelEntity.setWeight( parcel.getWeight() );
-            parcelEntity.setRecipient( recipientToRecipientEntity( parcel.getRecipient() ) );
-            parcelEntity.setSender( recipientToRecipientEntity( parcel.getSender() ) );
+            parcelEntity.weight( parcel.getWeight() );
+            parcelEntity.recipient( recipientToRecipientEntity( parcel.getRecipient() ) );
+            parcelEntity.sender( recipientToRecipientEntity( parcel.getSender() ) );
         }
         if ( newParcelInfo != null ) {
-            parcelEntity.setTrackingId( newParcelInfo.getTrackingId() );
+            parcelEntity.trackingId( newParcelInfo.getTrackingId() );
         }
         if ( trackingInformation != null ) {
-            parcelEntity.setState( trackingInformation.getState() );
-            parcelEntity.setVisitedHops( hopArrivalListToHopArrivalEntityList( trackingInformation.getVisitedHops() ) );
-            parcelEntity.setFutureHops( hopArrivalListToHopArrivalEntityList( trackingInformation.getFutureHops() ) );
+            parcelEntity.state( trackingInformation.getState() );
+            parcelEntity.visitedHops( hopArrivalListToHopArrivalEntityList( trackingInformation.getVisitedHops() ) );
+            parcelEntity.futureHops( hopArrivalListToHopArrivalEntityList( trackingInformation.getFutureHops() ) );
         }
 
-        return parcelEntity;
+        return parcelEntity.build();
     }
 
     @Override
@@ -92,15 +95,15 @@ public class ParcelMapperImpl implements ParcelMapper {
             return null;
         }
 
-        RecipientEntity recipientEntity = new RecipientEntity();
+        RecipientEntityBuilder recipientEntity = RecipientEntity.builder();
 
-        recipientEntity.setCountry( recipient.getCountry() );
-        recipientEntity.setName( recipient.getName() );
-        recipientEntity.setStreet( recipient.getStreet() );
-        recipientEntity.setPostalCode( recipient.getPostalCode() );
-        recipientEntity.setCity( recipient.getCity() );
+        recipientEntity.country( recipient.getCountry() );
+        recipientEntity.name( recipient.getName() );
+        recipientEntity.street( recipient.getStreet() );
+        recipientEntity.postalCode( recipient.getPostalCode() );
+        recipientEntity.city( recipient.getCity() );
 
-        return recipientEntity;
+        return recipientEntity.build();
     }
 
     protected HopArrivalEntity hopArrivalToHopArrivalEntity(HopArrival hopArrival) {
@@ -108,13 +111,13 @@ public class ParcelMapperImpl implements ParcelMapper {
             return null;
         }
 
-        HopArrivalEntity hopArrivalEntity = new HopArrivalEntity();
+        HopArrivalEntityBuilder hopArrivalEntity = HopArrivalEntity.builder();
 
-        hopArrivalEntity.setCode( hopArrival.getCode() );
-        hopArrivalEntity.setDescription( hopArrival.getDescription() );
-        hopArrivalEntity.setDateTime( hopArrival.getDateTime() );
+        hopArrivalEntity.code( hopArrival.getCode() );
+        hopArrivalEntity.description( hopArrival.getDescription() );
+        hopArrivalEntity.dateTime( hopArrival.getDateTime() );
 
-        return hopArrivalEntity;
+        return hopArrivalEntity.build();
     }
 
     protected List<HopArrivalEntity> hopArrivalListToHopArrivalEntityList(List<HopArrival> list) {

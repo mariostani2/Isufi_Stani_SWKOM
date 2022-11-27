@@ -6,7 +6,10 @@ import at.fhtw.swen3.persistence.repositories.RecipientRepository;
 import at.fhtw.swen3.services.ParcelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 @RequiredArgsConstructor
+@Component
 public class ParcelServiceImpl implements ParcelService {
 
     @Autowired

@@ -34,9 +34,33 @@ public class ParcelMapperTest {
 
     @Test
     void entityToParcelDto(){
-        RecipientEntity recipient=new RecipientEntity();
-        recipient.setName("recip");
-        ParcelEntity entity=new ParcelEntity(3l, recipient, new RecipientEntity(), "RD4343", TrackingInformation.StateEnum.DELIVERED, new LinkedList<>(){}, new LinkedList<>());
+
+        List<HopArrivalEntity> visitedHops = new ArrayList<>();
+        List<HopArrivalEntity> futureHops = new ArrayList<>();
+
+    RecipientEntity    recipient = RecipientEntity.builder().build();
+        recipient.setName("Rec1");
+        recipient.setStreet("Teststrasse 13");
+        recipient.setPostalCode("1070");
+        recipient.setCity("Wien");
+        recipient.setCountry("Österreich");
+
+  RecipientEntity      sender = RecipientEntity.builder().build();
+        sender.setName("Sen1");
+        sender.setStreet("Teststrasse 13");
+        sender.setPostalCode("1070");
+        sender.setCity("Wien");
+        sender.setCountry("Österreich");
+
+    ParcelEntity   entity = ParcelEntity.builder()
+                .trackingId("P12345678")
+                .visitedHops(visitedHops)
+                .futureHops(futureHops)
+                .recipient(recipient)
+                .sender(sender)
+                .state(TrackingInformation.StateEnum.DELIVERED)
+                .weight(6.f)
+                .build();
         Parcel parcelDto=mapper.entityToParcelDto(entity);
 
         assertEquals(parcelDto.getWeight(),entity.getWeight());
@@ -45,14 +69,14 @@ public class ParcelMapperTest {
 
     @Test
     void entityToTrackingInformationDto(){
-        ParcelEntity entity=new ParcelEntity(30l, new RecipientEntity(), new RecipientEntity(), "RD4343", TrackingInformation.StateEnum.DELIVERED, new LinkedList<>(){}, new LinkedList<>());
+        ParcelEntity entity=new ParcelEntity(30l,RecipientEntity.builder().build(), RecipientEntity.builder().build(), "RD4343", TrackingInformation.StateEnum.DELIVERED, new LinkedList<>(){}, new LinkedList<>());
         TrackingInformation trackingInformationDto=mapper.entityToTrackingInformationDto(entity);
         assertEquals(trackingInformationDto.getState(),entity.getState());
     }
 
     @Test
     void entityToNewParcelInfoDto(){
-        ParcelEntity entity=new ParcelEntity(32l, new RecipientEntity(), new RecipientEntity(), "RD4343", TrackingInformation.StateEnum.DELIVERED, new LinkedList<>(){}, new LinkedList<>());
+        ParcelEntity entity=new ParcelEntity(32l, RecipientEntity.builder().build(), RecipientEntity.builder().build(), "RD4343", TrackingInformation.StateEnum.DELIVERED, new LinkedList<>(){}, new LinkedList<>());
         NewParcelInfo newParcelInfoDto= mapper.entityToNewParcelInfoDto(entity);
         assertEquals(newParcelInfoDto.getTrackingId(),entity.getTrackingId());
     }

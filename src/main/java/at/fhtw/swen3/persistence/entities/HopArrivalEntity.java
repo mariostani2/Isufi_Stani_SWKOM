@@ -1,5 +1,6 @@
 package at.fhtw.swen3.persistence.entities;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,7 @@ import java.time.OffsetDateTime;
 @Getter @Setter
 @Entity
 @Table(name="hopArrival")
+@Builder
 public class HopArrivalEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "AUTO")
     private Long id;

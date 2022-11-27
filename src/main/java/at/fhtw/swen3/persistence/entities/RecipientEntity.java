@@ -2,6 +2,7 @@ package at.fhtw.swen3.persistence.entities;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,9 +12,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
-import java.util.Optional;
 import java.util.Set;
 
 
@@ -70,7 +69,6 @@ public class RecipientEntity {
         this.id = id;
     }
 
-    @Id
     public Long getId() {
         return id;
     }

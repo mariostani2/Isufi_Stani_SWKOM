@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RecipientRepository  extends JpaRepository<RecipientEntity, Long> {
-    void save(RecipientEntity recipient);
+
 }

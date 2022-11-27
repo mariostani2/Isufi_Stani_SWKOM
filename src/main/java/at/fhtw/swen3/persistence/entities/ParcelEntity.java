@@ -1,10 +1,9 @@
 package at.fhtw.swen3.persistence.entities;
 
 import at.fhtw.swen3.services.dto.TrackingInformation;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.ConstraintViolation;
@@ -21,6 +20,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Builder
 @Table(name = "parcel")
 public class ParcelEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "AUTO")
@@ -33,11 +33,9 @@ public class ParcelEntity {
 
     @NotNull(message ="recipient cannot be NULL")
     @OneToOne
-    @Column
     private RecipientEntity recipient;
 
     @OneToOne
-    @Column
     @NotNull(message ="sender cannot be NULL")
     private RecipientEntity sender;
 
@@ -49,14 +47,15 @@ public class ParcelEntity {
     @NotNull(message ="state cannot be NULL")
     private TrackingInformation.StateEnum state;
 
+
     @Column
     @NotNull(message ="visitedHops cannot be NULL")
-    @OneToMany
+    @ManyToMany (cascade =CascadeType.ALL)
     private List<HopArrivalEntity> visitedHops;
 
     @Column
     @NotNull(message ="futureHops cannot be NULL")
-    @OneToMany
+    @ManyToMany(targetEntity=HopArrivalEntity.class)
     private List<HopArrivalEntity> futureHops;
 
     public <E> ParcelEntity(Long v, RecipientEntity recipient, RecipientEntity recipientEntity, String rd4343, TrackingInformation.StateEnum delivered, LinkedList<E> es, LinkedList<E> es1) {
