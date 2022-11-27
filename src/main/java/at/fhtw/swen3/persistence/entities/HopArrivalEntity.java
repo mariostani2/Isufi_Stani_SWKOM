@@ -33,7 +33,7 @@ public class HopArrivalEntity {
         this.id = id;
     }
 
-    @Id
+
     public Long getId() {
         return id;
     }

@@ -1,5 +1,6 @@
 package at.fhtw.swen3.services.mapper;
 
+import at.fhtw.swen3.persistence.entities.HopArrivalEntity;
 import at.fhtw.swen3.persistence.entities.ParcelEntity;
 import at.fhtw.swen3.persistence.entities.RecipientEntity;
 import at.fhtw.swen3.services.dto.NewParcelInfo;
@@ -8,7 +9,9 @@ import at.fhtw.swen3.services.dto.Recipient;
 import at.fhtw.swen3.services.dto.TrackingInformation;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -63,6 +66,7 @@ public class ParcelMapperTest {
                 .build();
         Parcel parcelDto=mapper.entityToParcelDto(entity);
 
+        System.out.println(parcelDto);
         assertEquals(parcelDto.getWeight(),entity.getWeight());
         assertEquals(parcelDto.getRecipient().getName(),entity.getRecipient().getName());
     }

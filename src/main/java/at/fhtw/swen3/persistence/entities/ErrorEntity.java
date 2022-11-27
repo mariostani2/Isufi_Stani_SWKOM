@@ -20,7 +20,7 @@ public class ErrorEntity {
         this.id = id;
     }
 
-    @Id
+
     public Long getId() {
         return id;
     }

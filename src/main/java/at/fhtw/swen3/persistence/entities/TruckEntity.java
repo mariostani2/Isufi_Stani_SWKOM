@@ -28,7 +28,7 @@ public class TruckEntity {
         this.id = id;
     }
 
-    @Id
+
     public Long getId() {
         return id;
     }
