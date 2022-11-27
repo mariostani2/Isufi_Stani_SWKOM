@@ -3,6 +3,7 @@ package at.fhtw.swen3.services.mapper;
 import at.fhtw.swen3.persistence.entities.GeoCoordinateEntity;
 import at.fhtw.swen3.persistence.entities.HopEntity;
 import at.fhtw.swen3.persistence.entities.WarehouseEntity;
+import at.fhtw.swen3.persistence.entities.WarehouseEntity.WarehouseEntityBuilder;
 import at.fhtw.swen3.persistence.entities.WarehouseNextHopsEntity;
 import at.fhtw.swen3.services.dto.GeoCoordinate;
 import at.fhtw.swen3.services.dto.Hop;
@@ -14,8 +15,8 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-17T00:02:47+0100",
-    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.1 (Oracle Corporation)"
+    date = "2022-11-27T16:29:25+0100",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.1.1 (Oracle Corporation)"
 )
 public class WarehouseMapperImpl implements WarehouseMapper {
 
@@ -45,18 +46,12 @@ public class WarehouseMapperImpl implements WarehouseMapper {
             return null;
         }
 
-        WarehouseEntity warehouseEntity = new WarehouseEntity();
+        WarehouseEntityBuilder warehouseEntity = WarehouseEntity.builder();
 
-        warehouseEntity.setHopType( dto.getHopType() );
-        warehouseEntity.setCode( dto.getCode() );
-        warehouseEntity.setDescription( dto.getDescription() );
-        warehouseEntity.setProcessingDelayMins( dto.getProcessingDelayMins() );
-        warehouseEntity.setLocationName( dto.getLocationName() );
-        warehouseEntity.setLocationCoordinates( geoCoordinateToGeoCoordinateEntity( dto.getLocationCoordinates() ) );
-        warehouseEntity.setLevel( dto.getLevel() );
-        warehouseEntity.setNextHops( warehouseNextHopsListToWarehouseNextHopsEntityList( dto.getNextHops() ) );
+        warehouseEntity.level( dto.getLevel() );
+        warehouseEntity.nextHops( warehouseNextHopsListToWarehouseNextHopsEntityList( dto.getNextHops() ) );
 
-        return warehouseEntity;
+        return warehouseEntity.build();
     }
 
     protected GeoCoordinate geoCoordinateEntityToGeoCoordinate(GeoCoordinateEntity geoCoordinateEntity) {
