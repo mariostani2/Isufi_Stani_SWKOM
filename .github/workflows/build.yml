@@ -16,7 +16,8 @@ jobs:
     - name: Purge artifacts
       uses: kolpav/purge-artifacts-action@v1
       with:
-       expire-in: 10 min    
+       expire-in: 10 min
+       token: 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
     - uses: actions/checkout@v3
     - name: Set up JDK 17
       uses: actions/setup-java@v3
