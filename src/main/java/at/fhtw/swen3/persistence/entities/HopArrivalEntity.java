@@ -2,6 +2,7 @@ package at.fhtw.swen3.persistence.entities;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -28,6 +29,8 @@ public class HopArrivalEntity {
     @Column
     private OffsetDateTime dateTime;
 
+    @ManyToOne
+    private ParcelEntity parcelEntity;
 
     public void setId(Long id) {
         this.id = id;
