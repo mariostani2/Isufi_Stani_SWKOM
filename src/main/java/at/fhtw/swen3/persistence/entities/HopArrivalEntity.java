@@ -2,6 +2,7 @@ package at.fhtw.swen3.persistence.entities;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,7 +10,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
 import java.time.OffsetDateTime;
-
 @Getter @Setter
 @Entity
 @Table(name="hopArrival")
@@ -28,6 +28,8 @@ public class HopArrivalEntity {
     @Column
     private OffsetDateTime dateTime;
 
+    @ManyToOne
+    private ParcelEntity parcelEntity;
 
     public void setId(Long id) {
         this.id = id;
