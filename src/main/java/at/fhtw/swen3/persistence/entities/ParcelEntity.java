@@ -31,10 +31,12 @@ public class ParcelEntity {
     @Column
     private Float weight;
 
+    @JoinColumn
     @NotNull(message ="recipient cannot be NULL")
     @OneToOne
     private RecipientEntity recipient;
 
+    @JoinColumn
     @OneToOne
     @NotNull(message ="sender cannot be NULL")
     private RecipientEntity sender;
