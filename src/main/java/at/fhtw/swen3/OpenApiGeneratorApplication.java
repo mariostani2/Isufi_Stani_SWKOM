@@ -12,12 +12,9 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = {"org.openapitools", "at.fhtw.swen3"})
 @Slf4j
 public class OpenApiGeneratorApplication {
-    @Value("${spring.datasource.url}")
-    static String url;
 
     public static void main(String[] args) {
 
-        log.info("url: "+url);
         SpringApplication.run(OpenApiGeneratorApplication.class, args);
         log.info("Application Started (lombok)");
     }
