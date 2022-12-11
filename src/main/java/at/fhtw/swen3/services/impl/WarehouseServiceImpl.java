@@ -4,12 +4,14 @@ import at.fhtw.swen3.persistence.entities.WarehouseEntity;
 import at.fhtw.swen3.persistence.repositories.WarehouseRepository;
 import at.fhtw.swen3.services.WarehouseService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @RequiredArgsConstructor
+@Slf4j
 public class WarehouseServiceImpl implements WarehouseService {
 
     @Autowired

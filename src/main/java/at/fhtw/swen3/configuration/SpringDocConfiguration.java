@@ -33,13 +33,5 @@ public class SpringDocConfiguration {
         ;
     }
 
-    @Bean
-    public ParcelServiceImpl parcelService(ParcelRepository parcelRepository, RecipientRepository recipientRepository) {
-        return new ParcelServiceImpl(parcelRepository,recipientRepository);
-    }
 
-    @Bean
-    public WarehouseServiceImpl warehouseService(WarehouseRepository warehouseRepository) {
-        return new WarehouseServiceImpl(warehouseRepository);
-    }
 }

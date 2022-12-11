@@ -8,7 +8,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-12-06T14:14:49+0100",
+    date = "2022-12-11T14:47:03+0100",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.1 (Oracle Corporation)"
 )
 public class HopMapperImpl implements HopMapper {
