@@ -24,6 +24,7 @@ public class HopArrivalEntity {
     @NotNull
     @Column
     private String description;
+    @NotNull
     @PastOrPresent
     @Column
     private OffsetDateTime dateTime;

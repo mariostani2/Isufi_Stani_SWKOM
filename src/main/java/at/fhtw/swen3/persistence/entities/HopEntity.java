@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
@@ -19,6 +20,7 @@ public class HopEntity {
     @Column
     private String hopType;
 
+    @Pattern(regexp = "^[A-Z]{4}\\d{1,4}$")
     @NotNull
     @Column
     private String code;

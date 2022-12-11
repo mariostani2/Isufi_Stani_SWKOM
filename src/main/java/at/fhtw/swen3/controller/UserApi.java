@@ -3,7 +3,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-package at.fhtw.swen3.controller.rest;
+package at.fhtw.swen3.controller;
 
 import java.util.List;
 
