@@ -2,11 +2,15 @@ package at.fhtw.swen3.controller.rest;
 
 
 import at.fhtw.swen3.controller.ParcelApi;
+import at.fhtw.swen3.persistence.entities.ParcelEntity;
 import at.fhtw.swen3.services.dto.NewParcelInfo;
 import at.fhtw.swen3.services.dto.Parcel;
 import at.fhtw.swen3.services.dto.TrackingInformation;
+import at.fhtw.swen3.services.impl.ParcelServiceImpl;
+import at.fhtw.swen3.services.mapper.ParcelMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -18,6 +22,9 @@ import javax.annotation.Generated;
 @Controller
 @Slf4j
 public class ParcelApiController implements ParcelApi {
+
+    @Autowired
+    ParcelServiceImpl parcelService;
 
     private final NativeWebRequest request;
 
@@ -41,7 +48,8 @@ public class ParcelApiController implements ParcelApi {
      */
     @Override
     public ResponseEntity<Void> reportParcelDelivery(String trackingId) {
-        return ParcelApi.super.reportParcelDelivery(trackingId);
+        parcelService.reportParcelDelivery(trackingId);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     /**
@@ -68,7 +76,10 @@ public class ParcelApiController implements ParcelApi {
      */
     @Override
     public ResponseEntity<NewParcelInfo> submitParcel(Parcel parcel) {
-        return ParcelApi.super.submitParcel(parcel);
+        ParcelEntity parcelEntity = ParcelMapper.INSTANCE.dtoToEntity(parcel,null,null);
+        parcelService.submitNewParcel(parcelEntity);
+        NewParcelInfo newParcelInfo = ParcelMapper.INSTANCE.entityToNewParcelInfoDto(parcelEntity);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newParcelInfo);
     }
 
     /**
@@ -81,7 +92,8 @@ public class ParcelApiController implements ParcelApi {
      */
     @Override
     public ResponseEntity<TrackingInformation> trackParcel(String trackingId) {
-        return ParcelApi.super.trackParcel(trackingId);
+        TrackingInformation trackingInformation = parcelService.trackParcel(trackingId);
+        return ResponseEntity.status(200).body(trackingInformation);
     }
 
     /**
@@ -95,6 +107,7 @@ public class ParcelApiController implements ParcelApi {
      */
     @Override
     public ResponseEntity<NewParcelInfo> transitionParcel(String trackingId, Parcel parcel) {
-        return ParcelApi.super.transitionParcel(trackingId, parcel);
+        NewParcelInfo newParcelInfo= parcelService.transitionParcel(trackingId,parcel);
+        return ResponseEntity.status(200).body(newParcelInfo);
     }
 }

@@ -64,6 +64,9 @@ public class ParcelEntity {
     }
 
 
+
+
+
     @AssertTrue
     private boolean validate(){
         if(recipient.isValid() && sender.isValid())

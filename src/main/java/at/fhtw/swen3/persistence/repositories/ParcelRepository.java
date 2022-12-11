@@ -12,5 +12,7 @@ public interface ParcelRepository extends JpaRepository<ParcelEntity, Long> {
 
 
     Optional<ParcelEntity> findById(Long id);
+    Optional<ParcelEntity> findByTrackingId(String id);
+
 
 }

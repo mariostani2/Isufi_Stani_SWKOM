@@ -12,8 +12,10 @@ import javax.validation.constraints.Pattern;
 @Setter
 @Entity
 @Table(name="hop")
-public class HopEntity {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "AUTO")
+public class
+HopEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "AUTO")
     private Long id;
 
     @NotNull
@@ -39,6 +41,7 @@ public class HopEntity {
 
     @NotNull
     @OneToOne
+    @JoinColumn
     private GeoCoordinateEntity locationCoordinates;
 
 
