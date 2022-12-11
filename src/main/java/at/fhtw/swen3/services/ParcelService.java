@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 @Service("parcelService")
 public interface ParcelService {
 
+    void reportParcelDelivery(String trackingId);
+    void reportParcelHop(String trackingId, String code);
+
     void submitNewParcel(ParcelEntity parcelEntity);
     TrackingInformation trackParcel(String trackingId);
     NewParcelInfo transitionParcel (String trackingId,Parcel parcel);

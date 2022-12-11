@@ -25,4 +25,16 @@ public class WarehouseServiceImpl implements WarehouseService {
     public List<WarehouseEntity> exportWarehouses() {
         return warehouseRepository.findAll();
     }
+
+    @Override
+    public HopEntity getWarehouse(String code) {
+        var result = warehouseRepository.findByCode(code);
+        return result.size()>0 ?  warehouseRepository.findByCode(code).get(0) : null;
+    }
+
+    @Override
+    public void importWarehouse(WarehouseEntity warehouseEntity) {
+        warehouseRepository.save(warehouseEntity);
+    }
+
 }
