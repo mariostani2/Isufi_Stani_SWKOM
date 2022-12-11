@@ -10,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Getter
@@ -25,5 +26,5 @@ public class WarehouseEntity extends HopEntity {
 
     @OneToMany
     @NotNull
-    private List<WarehouseNextHopsEntity> nextHops = new ArrayList<>();
+    private List<WarehouseNextHopsEntity> nextHops = new LinkedList<>();
 }

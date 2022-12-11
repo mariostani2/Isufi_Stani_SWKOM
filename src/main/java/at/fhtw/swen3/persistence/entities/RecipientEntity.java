@@ -1,10 +1,7 @@
 package at.fhtw.swen3.persistence.entities;
 
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.ConstraintViolation;
@@ -20,6 +17,7 @@ import java.util.Set;
 @Getter @Setter
 @Entity
 @Builder
+@AllArgsConstructor
 @Table(name = "recipient")
 public class RecipientEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "AUTO")
@@ -49,6 +47,9 @@ public class RecipientEntity {
     @Pattern(regexp = "^[A-Z][A-Za-z\\s0-9-]+$")
     private String city;
 
+    public RecipientEntity() {
+
+    }
 
 
     @AssertTrue
