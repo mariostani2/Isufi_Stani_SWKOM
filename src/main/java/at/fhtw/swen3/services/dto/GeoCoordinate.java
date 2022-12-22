@@ -1,6 +1,8 @@
 package at.fhtw.swen3.services.dto;
 
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -14,7 +16,8 @@ import javax.annotation.Generated;
  * GeoCoordinate
  */
 
-@JsonTypeName("geoCoordinate")
+//@JsonTypeName("geoCoordinate")
+@JsonIgnoreProperties
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-10-24T08:44:03.675534Z[Etc/UTC]")
 public class GeoCoordinate {
 

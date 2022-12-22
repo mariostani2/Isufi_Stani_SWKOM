@@ -35,7 +35,6 @@ public class ParcelServiceImpl implements ParcelService {
 
     @Override
     public void reportParcelHop(String trackingId, String code) {
-
     }
 
     @Override
@@ -52,8 +51,13 @@ public class ParcelServiceImpl implements ParcelService {
 
     @Override
     public TrackingInformation trackParcel(String trackingId) {
-        Optional<ParcelEntity> parcel = parcelRepository.findByTrackingId(trackingId);
-        return ParcelMapper.INSTANCE.entityToTrackingInformationDto(parcel.get());
+        try{
+            Optional<ParcelEntity> parcel = parcelRepository.findByTrackingId(trackingId);
+            return ParcelMapper.INSTANCE.entityToTrackingInformationDto(parcel.get());
+        }catch (Exception e){
+            return null;
+        }
+
     }
 
     @Override
