@@ -7,6 +7,7 @@ import at.fhtw.swen3.services.impl.ParcelServiceImpl;
 import at.fhtw.swen3.services.impl.WarehouseServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class AppConfig {
@@ -19,4 +20,9 @@ public class AppConfig {
     public WarehouseServiceImpl warehouseService(WarehouseRepository warehouseRepository) {
         return new WarehouseServiceImpl(warehouseRepository);
     }
+
+//    @Bean
+//    public WebClient nominatimWebClient() {
+//        return WebClient.create("https://nominatim.openstreetmap.org");
+//    }
 }
