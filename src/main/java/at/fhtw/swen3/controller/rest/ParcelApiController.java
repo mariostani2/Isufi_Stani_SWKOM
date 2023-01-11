@@ -1,6 +1,8 @@
 package at.fhtw.swen3.controller.rest;
 
 
+
+
 import at.fhtw.swen3.controller.ParcelApi;
 import at.fhtw.swen3.persistence.entities.ParcelEntity;
 import at.fhtw.swen3.services.dto.NewParcelInfo;
@@ -77,9 +79,9 @@ public class ParcelApiController implements ParcelApi {
      */
     @Override
     public ResponseEntity<NewParcelInfo> submitParcel(Parcel parcel) {
-        ParcelEntity parcelEntity = ParcelMapper.INSTANCE.dtoToEntity(parcel,null,null);
+        ParcelEntity parcelEntity = ParcelMapper.INSTANCE.parcelDtoToParcelEntity(parcel);
         parcelService.submitNewParcel(parcelEntity);
-        NewParcelInfo newParcelInfo = ParcelMapper.INSTANCE.entityToNewParcelInfoDto(parcelEntity);
+        NewParcelInfo newParcelInfo = ParcelMapper.INSTANCE.parcelEntityToNewParcelInfoDto(parcelEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body(newParcelInfo);
     }
 

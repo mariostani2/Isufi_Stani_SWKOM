@@ -1,6 +1,8 @@
 package at.fhtw.swen3.controller.rest;
 
 
+
+
 import at.fhtw.swen3.controller.WarehouseApi;
 import at.fhtw.swen3.persistence.entities.HopEntity;
 import at.fhtw.swen3.persistence.entities.WarehouseEntity;
@@ -8,7 +10,7 @@ import at.fhtw.swen3.services.dto.Hop;
 import at.fhtw.swen3.services.dto.Warehouse;
 import at.fhtw.swen3.services.impl.WarehouseServiceImpl;
 import at.fhtw.swen3.services.mapper.WarehouseMapper;
-import at.fhtw.swen3.services.mapper.WarehouseMapperImpl;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

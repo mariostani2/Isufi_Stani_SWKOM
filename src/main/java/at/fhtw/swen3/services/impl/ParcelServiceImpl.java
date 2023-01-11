@@ -41,7 +41,7 @@ public class ParcelServiceImpl implements ParcelService {
     public void submitNewParcel(ParcelEntity parcelEntity) {
         parcelEntity.setVisitedHops(new LinkedList<>());
         parcelEntity.setFutureHops(new LinkedList<>());
-        parcelEntity.setState(TrackingInformation.StateEnum.PICKUP);
+        parcelEntity.setState(ParcelEntity.StateEnum.PICKUP);
         parcelEntity.setTrackingId("PYJRB4HZ6");
         recipientRepository.save(parcelEntity.getRecipient());
         recipientRepository.save(parcelEntity.getSender());
@@ -53,7 +53,7 @@ public class ParcelServiceImpl implements ParcelService {
     public TrackingInformation trackParcel(String trackingId) {
         try{
             Optional<ParcelEntity> parcel = parcelRepository.findByTrackingId(trackingId);
-            return ParcelMapper.INSTANCE.entityToTrackingInformationDto(parcel.get());
+            return ParcelMapper.INSTANCE.parcelEntityToTrackingInformationDto(parcel.get());
         }catch (Exception e){
             return null;
         }
