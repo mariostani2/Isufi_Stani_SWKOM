@@ -85,8 +85,12 @@ public class WarehouseApiController implements WarehouseApi {
      */
     @Override
     public ResponseEntity<Void> importWarehouses(Warehouse warehouse) {
-//        WarehouseEntity warehouseEntity = WarehouseMapper.INSTANCE.dtoToEntity(warehouse);
-//        warehouseService.importWarehouse(warehouseEntity);
+
+        WarehouseEntity warehouseEntity = WarehouseMapper.INSTANCE.dtoToEntity(warehouse);
+
+       // warehouse.nextHops()
+
+        warehouseService.importWarehouse(warehouseEntity);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

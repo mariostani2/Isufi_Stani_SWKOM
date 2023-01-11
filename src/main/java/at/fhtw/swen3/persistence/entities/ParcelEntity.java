@@ -1,97 +1,141 @@
 package at.fhtw.swen3.persistence.entities;
 
-import at.fhtw.swen3.services.dto.TrackingInformation;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-import javax.validation.constraints.*;
-import java.util.LinkedList;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Set;
+import java.util.Objects;
 
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
-@Builder
-@Table(name = "parcel")
+@Table(name="parcel")
 public class ParcelEntity {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "AUTO")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-
-    @DecimalMin("0.0")
-    @Column
+    @Min(value= 0, message = "weight must be equal or greater than zero")
+    @JsonProperty("weight")
     private Float weight;
-
-    @JoinColumn
-    @NotNull(message ="recipient cannot be NULL")
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name="recipient_id", nullable=true)
+    @JsonProperty("recipient")
     private RecipientEntity recipient;
-
-    @JoinColumn
-    @OneToOne
-    @NotNull(message ="sender cannot be NULL")
+    @ManyToOne
+    @JoinColumn(name="sender_id", nullable=true)
+    @JsonProperty("sender")
     private RecipientEntity sender;
-
-    @Column
-    @Pattern(regexp = "^[A-Z0-9]{9}$")
+    @JsonProperty("trackingId")
     private String trackingId;
 
-    @Column
-    @NotNull(message ="state cannot be NULL")
-    private TrackingInformation.StateEnum state;
-
-
-    @Column
-    @NotNull(message ="visitedHops cannot be NULL")
-    @ManyToMany (cascade =CascadeType.ALL)
+    @OneToMany(mappedBy = "parcel")
+    @JsonProperty("visitedHops")
+    @Valid
     private List<HopArrivalEntity> visitedHops;
 
-    @Column
-    @NotNull(message ="futureHops cannot be NULL")
-    @ManyToMany(targetEntity=HopArrivalEntity.class)
+    @OneToMany(mappedBy = "parcel")
+    //@JoinColumn(name="future_hops_id")
+    @JsonProperty("futureHops")
+    @Valid
     private List<HopArrivalEntity> futureHops;
 
-    public <E> ParcelEntity(Long v, RecipientEntity recipient, RecipientEntity recipientEntity, String rd4343, TrackingInformation.StateEnum delivered, LinkedList<E> es, LinkedList<E> es1) {
-    }
 
+    /**
+     * State of the parcel.
+     */
+    public enum StateEnum {
+        PICKUP("Pickup"),
 
+        INTRANSPORT("InTransport"),
 
+        INTRUCKDELIVERY("InTruckDelivery"),
 
+        TRANSFERRED("Transferred"),
 
-    @AssertTrue
-    private boolean validate(){
-        if(recipient.isValid() && sender.isValid())
-        {
-            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-            Validator validator = factory.getValidator();
-            Set<ConstraintViolation<ParcelEntity>> violations = validator.validate(this);
-            for (ConstraintViolation<ParcelEntity> violation : violations) {
-                System.out.println(violation.getMessage());
-            }
-            return violations.isEmpty();
+        DELIVERED("Delivered");
+
+        private String value;
+
+        StateEnum(String value) {
+            this.value = value;
         }
 
-        return false;
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
 
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static StateEnum fromValue(String value) {
+            for (StateEnum b : StateEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
+    @JsonProperty("state")
+    private StateEnum state;
+
+
+    public List<HopArrivalEntity> visitedHops(List<HopArrivalEntity> visitedHops) {
+        this.visitedHops = visitedHops;
+        return this.visitedHops;
+    }
+
+    public List<HopArrivalEntity> addVisitedHopsItem(HopArrivalEntity visitedHopsItem) {
+        this.visitedHops.add(visitedHopsItem);
+        return this.visitedHops;
+    }
+
+    /**
+     * Hops visited in the past.
+     * @return visitedHops
+     */
+
+    public ParcelEntity futureHops(List<HopArrivalEntity> futureHops) {
+        this.futureHops = futureHops;
+        return this;
+    }
+
+    public ParcelEntity addFutureHopsItem(HopArrivalEntity futureHopsItem) {
+        this.futureHops.add(futureHopsItem);
+        return this;
+    }
+
+    /**
+     * Hops coming up in the future - their times are estimations.
+     * @return futureHops
+     */
+    @NotNull @Valid
+    @Schema(name = "futureHops", description = "Hops coming up in the future - their times are estimations.", required = true)
+    public List<HopArrivalEntity> getFutureHops() {
+        return futureHops;
     }
 
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public int hashCode() {
+        return Objects.hash(trackingId);
     }
 
-
-    public Long getId() {
-        return id;
-    }
 }
-

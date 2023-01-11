@@ -21,8 +21,4 @@ public class AppConfig {
         return new WarehouseServiceImpl(warehouseRepository);
     }
 
-//    @Bean
-//    public WebClient nominatimWebClient() {
-//        return WebClient.create("https://nominatim.openstreetmap.org");
-//    }
 }

@@ -1,41 +1,57 @@
 package at.fhtw.swen3.services.mapper;
 
 import at.fhtw.swen3.persistence.entities.TruckEntity;
+import at.fhtw.swen3.persistence.entities.TruckEntity.TruckEntityBuilder;
 import at.fhtw.swen3.services.dto.Truck;
 import javax.annotation.processing.Generated;
+import org.mapstruct.factory.Mappers;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-12-22T18:11:44+0100",
+    date = "2023-01-11T20:04:12+0100",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.1 (Oracle Corporation)"
 )
 public class TruckMapperImpl implements TruckMapper {
 
+    private final GeoCoordinateMapper geoCoordinateMapper = Mappers.getMapper( GeoCoordinateMapper.class );
+
     @Override
-    public Truck entityToDto(TruckEntity entity) {
-        if ( entity == null ) {
+    public TruckEntity dtoToEntity(Truck truckDto) {
+        if ( truckDto == null ) {
+            return null;
+        }
+
+        TruckEntityBuilder<?, ?> truckEntity = TruckEntity.builder();
+
+        truckEntity.numberPlate( truckDto.getNumberPlate() );
+        truckEntity.regionGeoJson( truckDto.getRegionGeoJson() );
+        truckEntity.hopType( truckDto.getHopType() );
+        truckEntity.code( truckDto.getCode() );
+        truckEntity.description( truckDto.getDescription() );
+        truckEntity.processingDelayMins( truckDto.getProcessingDelayMins() );
+        truckEntity.locationName( truckDto.getLocationName() );
+        truckEntity.locationCoordinates( geoCoordinateMapper.dtoToEntity( truckDto.getLocationCoordinates() ) );
+
+        return truckEntity.build();
+    }
+
+    @Override
+    public Truck entityToDto(TruckEntity truckEntity) {
+        if ( truckEntity == null ) {
             return null;
         }
 
         Truck truck = new Truck();
 
-        truck.setRegionGeoJson( entity.getRegionGeoJson() );
-        truck.setNumberPlate( entity.getNumberPlate() );
+        truck.setNumberPlate( truckEntity.getNumberPlate() );
+        truck.setRegionGeoJson( truckEntity.getRegionGeoJson() );
+        truck.hopType( truckEntity.getHopType() );
+        truck.code( truckEntity.getCode() );
+        truck.description( truckEntity.getDescription() );
+        truck.processingDelayMins( truckEntity.getProcessingDelayMins() );
+        truck.locationName( truckEntity.getLocationName() );
+        truck.locationCoordinates( geoCoordinateMapper.entityToDto( truckEntity.getLocationCoordinates() ) );
 
         return truck;
-    }
-
-    @Override
-    public TruckEntity dtoToEntity(Truck dto) {
-        if ( dto == null ) {
-            return null;
-        }
-
-        TruckEntity truckEntity = new TruckEntity();
-
-        truckEntity.setRegionGeoJson( dto.getRegionGeoJson() );
-        truckEntity.setNumberPlate( dto.getNumberPlate() );
-
-        return truckEntity;
     }
 }
