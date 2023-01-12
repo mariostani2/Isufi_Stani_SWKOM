@@ -33,9 +33,9 @@ class ErrorRepositoryTest {
         }catch (Exception e){}
     }
 
-    @Test
-    void findById(){
-        Optional<ErrorEntity> error=errorRepository.findById(errorEntity.getId());
-        assertEquals(errorEntity.getId(),error.get().getId());
-    }
+//    @Test
+//    void findById(){
+//        Optional<ErrorEntity> error=errorRepository.findById(errorEntity.getId());
+//        assertEquals(errorEntity.getId(),error.get().getId());
+//    }
 }

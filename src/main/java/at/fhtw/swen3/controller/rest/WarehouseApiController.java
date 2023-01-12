@@ -9,6 +9,7 @@ import at.fhtw.swen3.persistence.entities.WarehouseEntity;
 import at.fhtw.swen3.services.dto.Hop;
 import at.fhtw.swen3.services.dto.Warehouse;
 import at.fhtw.swen3.services.impl.WarehouseServiceImpl;
+import at.fhtw.swen3.services.mapper.HopMapper;
 import at.fhtw.swen3.services.mapper.WarehouseMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -69,8 +70,8 @@ public class WarehouseApiController implements WarehouseApi {
      */
     @Override
     public ResponseEntity<Hop> getWarehouse(String code) {
-        HopEntity warehouseEntity=warehouseService.getWarehouse(code);
-        return ResponseEntity.ok(WarehouseMapper.INSTANCE.entityToDto((WarehouseEntity) warehouseEntity));
+        HopEntity hopEntity=warehouseService.getWarehouse(code);
+        return ResponseEntity.ok(HopMapper.INSTANCE.entityToDto(hopEntity));
     }
 
     /**

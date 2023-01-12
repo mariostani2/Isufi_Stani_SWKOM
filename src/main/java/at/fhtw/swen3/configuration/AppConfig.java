@@ -1,8 +1,6 @@
 package at.fhtw.swen3.configuration;
 
-import at.fhtw.swen3.persistence.repositories.ParcelRepository;
-import at.fhtw.swen3.persistence.repositories.RecipientRepository;
-import at.fhtw.swen3.persistence.repositories.WarehouseRepository;
+import at.fhtw.swen3.persistence.repositories.*;
 import at.fhtw.swen3.services.impl.ParcelServiceImpl;
 import at.fhtw.swen3.services.impl.WarehouseServiceImpl;
 import org.springframework.context.annotation.Bean;
@@ -17,8 +15,8 @@ public class AppConfig {
     }
 
     @Bean
-    public WarehouseServiceImpl warehouseService(WarehouseRepository warehouseRepository) {
-        return new WarehouseServiceImpl(warehouseRepository);
+    public WarehouseServiceImpl warehouseService(WarehouseRepository warehouseRepository, WarehouseNextHopsRepository warehouseNextHopsRepository, HopRepository hopRepository, TruckRepository truckRepository, TransferwarehouseRepository transferwarehouseRepository, GeoCoordinateRepository geoCoordinateRepository ) {
+        return new WarehouseServiceImpl(warehouseRepository, warehouseNextHopsRepository, hopRepository, truckRepository, transferwarehouseRepository, geoCoordinateRepository);
     }
 
 }
