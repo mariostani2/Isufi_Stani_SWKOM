@@ -80,8 +80,10 @@ public class ParcelMapperTest {
 
     @Test
     void entityToNewParcelInfoDto(){
-        ParcelEntity entity=new ParcelEntity(32l, RecipientEntity.builder().build(), RecipientEntity.builder().build(), "RD4343", TrackingInformation.StateEnum.DELIVERED, new LinkedList<>(){}, new LinkedList<>());
-        NewParcelInfo newParcelInfoDto= mapper.entityToNewParcelInfoDto(entity);
+        ParcelEntity entity=ParcelEntity.builder()
+                .trackingId("RD4343")
+                .state(ParcelEntity.StateEnum.DELIVERED).build();
+        NewParcelInfo newParcelInfoDto= mapper.parcelEntityToNewParcelInfoDto(entity);
         assertEquals(newParcelInfoDto.getTrackingId(),entity.getTrackingId());
     }
 

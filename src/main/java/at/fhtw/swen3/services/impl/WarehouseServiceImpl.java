@@ -4,16 +4,15 @@ import at.fhtw.swen3.persistence.entities.HopEntity;
 import at.fhtw.swen3.persistence.entities.WarehouseEntity;
 import at.fhtw.swen3.persistence.repositories.WarehouseRepository;
 import at.fhtw.swen3.services.WarehouseService;
-import at.fhtw.swen3.services.dto.Hop;
-import at.fhtw.swen3.services.dto.Warehouse;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
+@AllArgsConstructor
 @Slf4j
 public class WarehouseServiceImpl implements WarehouseService {
 
@@ -36,5 +35,8 @@ public class WarehouseServiceImpl implements WarehouseService {
     public void importWarehouse(WarehouseEntity warehouseEntity) {
         warehouseRepository.save(warehouseEntity);
     }
+
+
+
 
 }

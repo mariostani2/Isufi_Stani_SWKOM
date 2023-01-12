@@ -7,6 +7,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 @Mapper(uses = {GeoCoordinateMapper.class, WarehouseNextHopsMapper.class})
 public interface WarehouseMapper {

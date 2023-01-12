@@ -54,14 +54,9 @@ public class WarehouseApiController implements WarehouseApi {
     @Override
     public ResponseEntity<Warehouse> exportWarehouses() {
 
-        List<WarehouseEntity> warehouseEntityList = warehouseService.exportWarehouses();
-        List<Warehouse> warehouseList=new LinkedList<>();
-        for(WarehouseEntity warehouseEntity: warehouseEntityList){
-            warehouseList.add(WarehouseMapper.INSTANCE.entityToDto(warehouseEntity));
-        }
-        if(warehouseList.size()>0)
-        return ResponseEntity.ok(warehouseList.get(0));
-        else return new ResponseEntity<>(HttpStatus.OK);
+        Optional<WarehouseEntity> warehouseEntity = warehouseService.exportWarehouses();
+        Warehouse warehouseDto = WarehouseMapper.INSTANCE.entityToDto(warehouseEntity.get());
+        return ResponseEntity.ok(warehouseDto);
     }
 
     /**

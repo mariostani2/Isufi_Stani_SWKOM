@@ -55,7 +55,7 @@ class ParcelRepositoryTest {
                 .futureHops(futureHops)
                 .recipient(recipient)
                 .sender(sender)
-                .state(TrackingInformation.StateEnum.DELIVERED)
+                .state(ParcelEntity.StateEnum.DELIVERED)
                 .weight(6.f)
                 .build();
     }
