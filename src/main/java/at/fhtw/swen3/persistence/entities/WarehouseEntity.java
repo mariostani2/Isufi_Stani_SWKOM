@@ -30,7 +30,7 @@ public class WarehouseEntity extends HopEntity {
     @JsonProperty("level")
     private Integer level;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true)
     @JsonProperty("nextHops")
     @Valid
     private List<WarehouseNextHopsEntity> nextHops = new ArrayList<>();
