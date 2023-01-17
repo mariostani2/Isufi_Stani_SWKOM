@@ -36,7 +36,6 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     private void dropDB() {
 
-        warehouseNextHopsRepository.deleteAll();
         warehouseRepository.deleteAll();
 
     }
