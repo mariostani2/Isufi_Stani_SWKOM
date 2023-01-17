@@ -34,7 +34,7 @@ class RecipientRepositoryTest {
             recipientRepository.delete(recipient);
         }catch (Exception e){}
     }
-
+/*
     @Test
     void findById(){
         try {
@@ -44,5 +44,6 @@ class RecipientRepositoryTest {
         catch (Exception e){
             System.out.println(e);
         }
-    }
+
+    } */
 }

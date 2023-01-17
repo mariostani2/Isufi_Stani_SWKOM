@@ -25,7 +25,7 @@ public class WarehouseNextHopsEntity {
     @JsonProperty("traveltimeMins")
     private Integer traveltimeMins;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 //    @JoinColumn(name = "next_hop_id")
     @JsonProperty("hop")
     private HopEntity hop;
