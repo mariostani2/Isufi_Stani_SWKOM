@@ -8,7 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -25,6 +28,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Autowired
     private TruckRepository truckRepository;
 
+
     @Autowired
     private TransferwarehouseRepository transferwarehouseRepository;
     @Autowired
@@ -34,10 +38,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 
         warehouseNextHopsRepository.deleteAll();
         warehouseRepository.deleteAll();
-        hopRepository.deleteAll();
-        truckRepository.deleteAll();
-        transferwarehouseRepository.deleteAll();
-        geoCoordinateRepository.deleteAll();
+
     }
 
 
