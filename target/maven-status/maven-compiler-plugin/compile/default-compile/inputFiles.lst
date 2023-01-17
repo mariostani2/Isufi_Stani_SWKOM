@@ -18,6 +18,7 @@ C:\Users\reldi\OneDrive\WS2022\SWKOM\src\main\java\at\fhtw\swen3\services\mapper
 C:\Users\reldi\OneDrive\WS2022\SWKOM\src\main\java\at\fhtw\swen3\persistence\repositories\HopArrivalRepository.java
 C:\Users\reldi\OneDrive\WS2022\SWKOM\src\main\java\at\fhtw\swen3\services\dto\Category.java
 C:\Users\reldi\OneDrive\WS2022\SWKOM\src\main\java\at\fhtw\swen3\services\mapper\WarehouseMapper.java
+C:\Users\reldi\OneDrive\WS2022\SWKOM\src\main\java\at\fhtw\swen3\services\mapper\JpaWarehouseContext.java
 C:\Users\reldi\OneDrive\WS2022\SWKOM\src\main\java\at\fhtw\swen3\persistence\repositories\RecipientRepository.java
 C:\Users\reldi\OneDrive\WS2022\SWKOM\src\main\java\at\fhtw\swen3\services\dto\Transferwarehouse.java
 C:\Users\reldi\OneDrive\WS2022\SWKOM\src\main\java\at\fhtw\swen3\configuration\AppConfig.java

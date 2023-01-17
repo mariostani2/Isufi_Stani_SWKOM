@@ -1,35 +1,55 @@
 package at.fhtw.swen3.persistence.entities;
 
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name="geoCoordinate")
+@Table(name="GeoCoordinate")
 public class GeoCoordinateEntity {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "AUTO")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @NotNull
-    @Column
+    @JsonProperty("lat")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "lat", nullable = false)
     private Double lat;
 
-    @NotNull
-    @Column
+    @JsonProperty("lon")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "lon", nullable = false)
     private Double lon;
 
-
-    public void setId(Long id) {
-        this.id = id;
+    public GeoCoordinateEntity lat(Double lat) {
+        this.lat = lat;
+        return this;
     }
 
+    /**
+     * Latitude of the coordinate.
+     * @return lat
+     */
 
-    public Long getId() {
-        return id;
+    public GeoCoordinateEntity lon(Double lon) {
+        this.lon = lon;
+        return this;
     }
+
+    /**
+     * Longitude of the coordinate.
+     * @return lon
+     */
+
+
 }
+
+
+

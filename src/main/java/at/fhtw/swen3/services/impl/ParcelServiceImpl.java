@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.LinkedList;
 import java.util.Optional;
@@ -30,7 +31,10 @@ public class ParcelServiceImpl implements ParcelService {
 
     @Override
     public void reportParcelDelivery(String trackingId) {
-
+        Optional<ParcelEntity> parcel = parcelRepository.findByTrackingId(trackingId);
+        ParcelEntity parcelEntity=parcel.get();
+        parcelEntity.setState(ParcelEntity.StateEnum.DELIVERED);
+        parcelRepository.save(parcelEntity);
     }
 
     @Override
@@ -41,8 +45,9 @@ public class ParcelServiceImpl implements ParcelService {
     public void submitNewParcel(ParcelEntity parcelEntity) {
         parcelEntity.setVisitedHops(new LinkedList<>());
         parcelEntity.setFutureHops(new LinkedList<>());
-        parcelEntity.setState(TrackingInformation.StateEnum.PICKUP);
-        parcelEntity.setTrackingId("PYJRB4HZ6");
+        parcelEntity.setState(ParcelEntity.StateEnum.PICKUP);
+        String trackingId = RandomStringUtils.randomAlphabetic(9);
+        parcelEntity.setTrackingId(trackingId.toUpperCase());
         recipientRepository.save(parcelEntity.getRecipient());
         recipientRepository.save(parcelEntity.getSender());
         parcelRepository.save(parcelEntity);
@@ -53,7 +58,7 @@ public class ParcelServiceImpl implements ParcelService {
     public TrackingInformation trackParcel(String trackingId) {
         try{
             Optional<ParcelEntity> parcel = parcelRepository.findByTrackingId(trackingId);
-            return ParcelMapper.INSTANCE.entityToTrackingInformationDto(parcel.get());
+            return ParcelMapper.INSTANCE.parcelEntityToTrackingInformationDto(parcel.get());
         }catch (Exception e){
             return null;
         }

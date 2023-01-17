@@ -1,2 +1,5 @@
+at\fhtw\swen3\services\impl\ParcelServiceImplTest.class
+at\fhtw\swen3\services\impl\WarehouseServiceImplTest.class
+at\fhtw\swen3\gps\service\impl\NominatimGeoServiceTest.class
 at\fhtw\swen3\controller\rest\WarehouseApiControllerTest.class
 at\fhtw\swen3\controller\rest\ParcelApiControllerTest.class

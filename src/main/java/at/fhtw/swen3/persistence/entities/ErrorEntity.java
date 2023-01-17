@@ -1,27 +1,30 @@
 package at.fhtw.swen3.persistence.entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
 @Getter
 @Setter
-@Entity
-@Table(name="error")
+@Slf4j
+@Table(name="Error")
+
 public class ErrorEntity {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "AUTO")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private Long id;
-    @Column
+
+    @JsonProperty("errorMessage")
     private String errorMessage;
 
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
 
-    public Long getId() {
-        return id;
-    }
 }

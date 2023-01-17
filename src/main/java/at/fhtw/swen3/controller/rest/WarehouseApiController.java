@@ -1,14 +1,17 @@
 package at.fhtw.swen3.controller.rest;
 
 
+
+
 import at.fhtw.swen3.controller.WarehouseApi;
 import at.fhtw.swen3.persistence.entities.HopEntity;
 import at.fhtw.swen3.persistence.entities.WarehouseEntity;
 import at.fhtw.swen3.services.dto.Hop;
 import at.fhtw.swen3.services.dto.Warehouse;
 import at.fhtw.swen3.services.impl.WarehouseServiceImpl;
+import at.fhtw.swen3.services.mapper.HopMapper;
 import at.fhtw.swen3.services.mapper.WarehouseMapper;
-import at.fhtw.swen3.services.mapper.WarehouseMapperImpl;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,14 +55,9 @@ public class WarehouseApiController implements WarehouseApi {
     @Override
     public ResponseEntity<Warehouse> exportWarehouses() {
 
-        List<WarehouseEntity> warehouseEntityList = warehouseService.exportWarehouses();
-        List<Warehouse> warehouseList=new LinkedList<>();
-        for(WarehouseEntity warehouseEntity: warehouseEntityList){
-            warehouseList.add(WarehouseMapper.INSTANCE.entityToDto(warehouseEntity));
-        }
-        if(warehouseList.size()>0)
-        return ResponseEntity.ok(warehouseList.get(0));
-        else return new ResponseEntity<>(HttpStatus.OK);
+        Optional<WarehouseEntity> warehouseEntity = warehouseService.exportWarehouses();
+        Warehouse warehouseDto = WarehouseMapper.INSTANCE.entityToDto(warehouseEntity.get());
+        return ResponseEntity.ok(warehouseDto);
     }
 
     /**
@@ -72,8 +70,8 @@ public class WarehouseApiController implements WarehouseApi {
      */
     @Override
     public ResponseEntity<Hop> getWarehouse(String code) {
-        HopEntity warehouseEntity=warehouseService.getWarehouse(code);
-        return ResponseEntity.ok(WarehouseMapper.INSTANCE.entityToDto((WarehouseEntity) warehouseEntity));
+        HopEntity hopEntity=warehouseService.getWarehouse(code);
+        return ResponseEntity.ok(HopMapper.INSTANCE.entityToDto(hopEntity));
     }
 
     /**
@@ -85,8 +83,12 @@ public class WarehouseApiController implements WarehouseApi {
      */
     @Override
     public ResponseEntity<Void> importWarehouses(Warehouse warehouse) {
-//        WarehouseEntity warehouseEntity = WarehouseMapper.INSTANCE.dtoToEntity(warehouse);
-//        warehouseService.importWarehouse(warehouseEntity);
+
+        WarehouseEntity warehouseEntity = WarehouseMapper.INSTANCE.dtoToEntity(warehouse);
+
+       // warehouse.nextHops()
+
+        warehouseService.importWarehouse(warehouseEntity);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

@@ -15,5 +15,5 @@ import java.util.Optional;
 import java.util.function.Function;
 @Repository
 public interface HopRepository  extends JpaRepository<HopEntity, Long> {
-
+    Optional<HopEntity> getFirstByCode(String code);
 }

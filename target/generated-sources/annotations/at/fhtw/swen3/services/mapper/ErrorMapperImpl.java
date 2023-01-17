@@ -1,39 +1,40 @@
 package at.fhtw.swen3.services.mapper;
 
 import at.fhtw.swen3.persistence.entities.ErrorEntity;
+import at.fhtw.swen3.persistence.entities.ErrorEntity.ErrorEntityBuilder;
 import at.fhtw.swen3.services.dto.Error;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-12-22T18:11:44+0100",
-    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.1 (Oracle Corporation)"
+    date = "2023-01-12T15:12:29+0100",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.1.1 (Oracle Corporation)"
 )
 public class ErrorMapperImpl implements ErrorMapper {
 
     @Override
-    public Error entityToDto(ErrorEntity entity) {
-        if ( entity == null ) {
+    public ErrorEntity dtoToEntity(Error errorDto) {
+        if ( errorDto == null ) {
+            return null;
+        }
+
+        ErrorEntityBuilder errorEntity = ErrorEntity.builder();
+
+        errorEntity.errorMessage( errorDto.getErrorMessage() );
+
+        return errorEntity.build();
+    }
+
+    @Override
+    public Error entityToDto(ErrorEntity errorEntity) {
+        if ( errorEntity == null ) {
             return null;
         }
 
         Error error = new Error();
 
-        error.setErrorMessage( entity.getErrorMessage() );
+        error.setErrorMessage( errorEntity.getErrorMessage() );
 
         return error;
-    }
-
-    @Override
-    public ErrorEntity dtoToEntity(Error dto) {
-        if ( dto == null ) {
-            return null;
-        }
-
-        ErrorEntity errorEntity = new ErrorEntity();
-
-        errorEntity.setErrorMessage( dto.getErrorMessage() );
-
-        return errorEntity;
     }
 }

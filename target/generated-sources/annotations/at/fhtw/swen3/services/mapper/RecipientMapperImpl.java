@@ -7,42 +7,42 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-12-22T18:11:44+0100",
-    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.1 (Oracle Corporation)"
+    date = "2023-01-12T15:12:29+0100",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 18.0.1.1 (Oracle Corporation)"
 )
 public class RecipientMapperImpl implements RecipientMapper {
 
     @Override
-    public Recipient entityToDto(RecipientEntity entity) {
-        if ( entity == null ) {
-            return null;
-        }
-
-        Recipient recipient = new Recipient();
-
-        recipient.setName( entity.getName() );
-        recipient.setStreet( entity.getStreet() );
-        recipient.setPostalCode( entity.getPostalCode() );
-        recipient.setCity( entity.getCity() );
-        recipient.setCountry( entity.getCountry() );
-
-        return recipient;
-    }
-
-    @Override
-    public RecipientEntity dtoToEntity(Recipient dto) {
-        if ( dto == null ) {
+    public RecipientEntity dtoToEntity(Recipient recipientDto) {
+        if ( recipientDto == null ) {
             return null;
         }
 
         RecipientEntityBuilder recipientEntity = RecipientEntity.builder();
 
-        recipientEntity.country( dto.getCountry() );
-        recipientEntity.name( dto.getName() );
-        recipientEntity.street( dto.getStreet() );
-        recipientEntity.postalCode( dto.getPostalCode() );
-        recipientEntity.city( dto.getCity() );
+        recipientEntity.country( recipientDto.getCountry() );
+        recipientEntity.city( recipientDto.getCity() );
+        recipientEntity.postalCode( recipientDto.getPostalCode() );
+        recipientEntity.street( recipientDto.getStreet() );
+        recipientEntity.name( recipientDto.getName() );
 
         return recipientEntity.build();
+    }
+
+    @Override
+    public Recipient entityToDto(RecipientEntity recipientEntity) {
+        if ( recipientEntity == null ) {
+            return null;
+        }
+
+        Recipient recipient = new Recipient();
+
+        recipient.setCountry( recipientEntity.getCountry() );
+        recipient.setCity( recipientEntity.getCity() );
+        recipient.setPostalCode( recipientEntity.getPostalCode() );
+        recipient.setStreet( recipientEntity.getStreet() );
+        recipient.setName( recipientEntity.getName() );
+
+        return recipient;
     }
 }
