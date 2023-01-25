@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -97,6 +98,8 @@ public class ParcelServiceImpl implements ParcelService {
         recipientRepository.save(parcelEntity.getRecipient());
         recipientRepository.save(parcelEntity.getSender());
         parcelRepository.save(parcelEntity);
+        hopArrivalRepository.saveAll(parcelEntity.getFutureHops());
+
         log.info("New Parcel added, trackingId: "+parcelEntity.getTrackingId());
     }
 

@@ -13,5 +13,6 @@ import java.util.Optional;
 @Repository
 public interface WarehouseNextHopsRepository  extends JpaRepository<WarehouseNextHopsEntity, Long> {
     Optional<WarehouseNextHopsEntity> findById(Long id);
+    WarehouseNextHopsEntity findWarehouseNextHopsEntityByHop_Code(String code);
 
 }
