@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -41,12 +42,13 @@ public class ParcelEntity {
     private String trackingId;
 
     @OneToMany(mappedBy = "parcel")
+    @Where(clause = "visited = 'TRUE'")
     @JsonProperty("visitedHops")
     @Valid
     private List<HopArrivalEntity> visitedHops;
 
     @OneToMany(mappedBy = "parcel")
-    //@JoinColumn(name="future_hops_id")
+    @Where(clause = "visited = 'FALSE'")
     @JsonProperty("futureHops")
     @Valid
     private List<HopArrivalEntity> futureHops;
@@ -130,6 +132,12 @@ public class ParcelEntity {
     @Schema(name = "futureHops", description = "Hops coming up in the future - their times are estimations.", required = true)
     public List<HopArrivalEntity> getFutureHops() {
         return futureHops;
+    }
+
+    @NotNull @Valid
+    @Schema(name = "visitedHops", description = "Visited Hops", required = true)
+    public List<HopArrivalEntity> getVisitedHops() {
+        return visitedHops;
     }
 
 

@@ -1,9 +1,11 @@
 package at.fhtw.swen3.services.impl;
 
+import at.fhtw.swen3.persistence.DALException;
 import at.fhtw.swen3.persistence.entities.HopEntity;
 import at.fhtw.swen3.persistence.entities.WarehouseEntity;
 import at.fhtw.swen3.persistence.repositories.*;
 import at.fhtw.swen3.services.WarehouseService;
+import at.fhtw.swen3.services.dto.Warehouse;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,9 +44,10 @@ public class WarehouseServiceImpl implements WarehouseService {
 
 
     @Override
-    public Optional<WarehouseEntity> exportWarehouses() {
-
-        return warehouseRepository.getFirstByLevel(0);
+    public WarehouseEntity exportWarehouses() throws DALException {
+        Optional<WarehouseEntity> warehouse= warehouseRepository.getFirstByLevel(0);
+        if (warehouse.isPresent()) return warehouse.get();
+        else throw new DALException();
     }
 
     @Override
