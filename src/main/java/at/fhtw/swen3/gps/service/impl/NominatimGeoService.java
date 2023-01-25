@@ -8,8 +8,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 public class NominatimGeoService implements GeoEncodingService {
 
-    @Autowired
-    private WebClient nominatimWebClient;
+//    @Autowired
+//    private WebClient nominatimWebClient;
     @Override
     public GeoCoordinate encodeAddress(Address a) {
          var x= WebClient.create("https://nominatim.openstreetmap.org")

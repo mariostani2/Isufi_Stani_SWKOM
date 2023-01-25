@@ -15,5 +15,5 @@ public interface ParcelService {
 
     void submitNewParcel(ParcelEntity parcelEntity);
     TrackingInformation trackParcel(String trackingId);
-    NewParcelInfo transitionParcel (String trackingId,Parcel parcel);
+    void transitionParcel (String trackingId,ParcelEntity parcel);
 }

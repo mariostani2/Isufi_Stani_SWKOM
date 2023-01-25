@@ -158,5 +158,10 @@
             <version>3.11</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-spatial</artifactId>
+            <version>6.1.6.Final</version>
+        </dependency>
     </dependencies>
 </project>
