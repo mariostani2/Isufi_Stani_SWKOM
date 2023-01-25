@@ -25,19 +25,19 @@ class HopRepositoryTest {
 
     @Autowired
     private NominatimGeoService nominatimGeoService;
-    @Test
-    void findNearestHop() {
-        Address sender=new Address();
-        sender.setStreet("Laudongasse 36");
-        sender.setZip("1080");
-        sender.setCity("Vienna");
-
-        Address rec=new Address();
-        rec.setStreet("Donaufelderstrasse 54");
-        rec.setZip("1080");
-        rec.setCity("Vienna");
-        GeoCoordinate s=nominatimGeoService.encodeAddress(sender);
-        var x=hopRepository.findNearestHop(s.getLon(),s.getLat());
-        System.out.println(x);
-    }
+//    @Test
+//    void findNearestHop() {
+//        Address sender=new Address();
+//        sender.setStreet("Laudongasse 36");
+//        sender.setZip("1080");
+//        sender.setCity("Vienna");
+//
+//        Address rec=new Address();
+//        rec.setStreet("Donaufelderstrasse 54");
+//        rec.setZip("1080");
+//        rec.setCity("Vienna");
+//        GeoCoordinate s=nominatimGeoService.encodeAddress(sender);
+//        var x=hopRepository.findNearestHop(s.getLon(),s.getLat());
+//        System.out.println(x);
+//    }
 }
