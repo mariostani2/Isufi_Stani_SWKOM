@@ -78,9 +78,9 @@ public class ParcelServiceImpl implements ParcelService {
             case "warehouse":
                 parcel.get().setState(ParcelEntity.StateEnum.INTRANSPORT);
                 break;
-            case "warehousetransfer":
+            case "transferwarehouse":
                 TransferwarehouseEntity transferwarehouse=transferwarehouseRepository.findTransferwarehouseEntitiesByCode(hop.getCode()).get();
-                callPartnerService(transferwarehouse.getLogisticsPartnerUrl(),parcel.get().getTrackingId());
+               // fake call callPartnerService(transferwarehouse.getLogisticsPartnerUrl(),parcel.get().getTrackingId());
                 parcel.get().setState(ParcelEntity.StateEnum.TRANSFERRED);
         }
         parcelRepository.save(parcel.get());
