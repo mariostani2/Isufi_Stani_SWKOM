@@ -35,9 +35,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     private GeoCoordinateRepository geoCoordinateRepository;
 
     private void dropDB() {
-
         warehouseRepository.deleteAll();
-
     }
 
 
