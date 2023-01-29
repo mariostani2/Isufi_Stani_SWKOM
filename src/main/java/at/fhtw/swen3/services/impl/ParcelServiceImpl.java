@@ -66,7 +66,7 @@ public class ParcelServiceImpl implements ParcelService {
     public void reportParcelHop(String trackingId, String code) {
         Optional<ParcelEntity> parcel = parcelRepository.findByTrackingId(trackingId);
         List<HopArrivalEntity> hopArrivalEntities=parcel.get().getFutureHops();
-        HopArrivalEntity hopArrival=hopArrivalRepository.findFirstByCode(code).get();
+        HopArrivalEntity hopArrival=hopArrivalRepository.findFirstByParcelAndCodeAndVisited(parcel.get(), code, false).get();
         hopArrival.setVisited(true);
         hopArrivalRepository.save(hopArrival);
 
