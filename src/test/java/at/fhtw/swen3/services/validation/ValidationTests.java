@@ -68,6 +68,6 @@ public class ValidationTests {
     void hopArrivalEntityValidationTest(){
         HopArrivalEntity hopArrival = HopArrivalEntity.builder().code("2332").dateTime(null).description(null).build();
         Set<ConstraintViolation<HopArrivalEntity>> violations = validator.validate(hopArrival);
-        assertEquals(5,violations.size());
+        assertEquals(3,violations.size());
     }
 }

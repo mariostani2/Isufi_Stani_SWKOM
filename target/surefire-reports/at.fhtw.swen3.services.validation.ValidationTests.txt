@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: at.fhtw.swen3.services.validation.ValidationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.393 s - in at.fhtw.swen3.services.validation.ValidationTests
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.002 s <<< FAILURE! - in at.fhtw.swen3.services.validation.ValidationTests
+hopArrivalEntityValidationTest  Time elapsed: 0.002 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <5> but was: <3>
+	at at.fhtw.swen3.services.validation.ValidationTests.hopArrivalEntityValidationTest(ValidationTests.java:71)
+

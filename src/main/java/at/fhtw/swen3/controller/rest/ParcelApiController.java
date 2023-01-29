@@ -110,7 +110,9 @@ public class ParcelApiController implements ParcelApi {
      */
     @Override
     public ResponseEntity<NewParcelInfo> transitionParcel(String trackingId, Parcel parcel) {
-        NewParcelInfo newParcelInfo= parcelService.transitionParcel(trackingId,parcel);
+        ParcelEntity parcelEntity=ParcelMapper.INSTANCE.parcelDtoToParcelEntity(parcel);
+        parcelService.transitionParcel(trackingId,parcelEntity);
+        NewParcelInfo newParcelInfo = ParcelMapper.INSTANCE.parcelEntityToNewParcelInfoDto(parcelEntity);
         return ResponseEntity.status(200).body(newParcelInfo);
     }
 }

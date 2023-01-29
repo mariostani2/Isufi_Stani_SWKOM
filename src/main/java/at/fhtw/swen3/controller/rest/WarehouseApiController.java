@@ -4,6 +4,7 @@ package at.fhtw.swen3.controller.rest;
 
 
 import at.fhtw.swen3.controller.WarehouseApi;
+import at.fhtw.swen3.persistence.DALException;
 import at.fhtw.swen3.persistence.entities.HopEntity;
 import at.fhtw.swen3.persistence.entities.WarehouseEntity;
 import at.fhtw.swen3.services.dto.Hop;
@@ -55,9 +56,14 @@ public class WarehouseApiController implements WarehouseApi {
     @Override
     public ResponseEntity<Warehouse> exportWarehouses() {
 
-        Optional<WarehouseEntity> warehouseEntity = warehouseService.exportWarehouses();
-        Warehouse warehouseDto = WarehouseMapper.INSTANCE.entityToDto(warehouseEntity.get());
-        return ResponseEntity.ok(warehouseDto);
+        try{
+            WarehouseEntity warehouseEntity = warehouseService.exportWarehouses();
+            Warehouse warehouseDto = WarehouseMapper.INSTANCE.entityToDto(warehouseEntity);
+            return ResponseEntity.ok(warehouseDto);
+        } catch (DALException e) {
+            return ResponseEntity.status(404).body(null);
+        }
+
     }
 
     /**
