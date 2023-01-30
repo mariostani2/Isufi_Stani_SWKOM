@@ -4,7 +4,9 @@ package at.fhtw.swen3.controller.rest;
 
 
 import at.fhtw.swen3.controller.ParcelApi;
+import at.fhtw.swen3.persistence.DALException;
 import at.fhtw.swen3.persistence.entities.ParcelEntity;
+import at.fhtw.swen3.services.BLException;
 import at.fhtw.swen3.services.dto.NewParcelInfo;
 import at.fhtw.swen3.services.dto.Parcel;
 import at.fhtw.swen3.services.dto.TrackingInformation;
@@ -65,7 +67,13 @@ public class ParcelApiController implements ParcelApi {
      */
     @Override
     public ResponseEntity<Void> reportParcelHop(String trackingId, String code) {
-        parcelService.reportParcelHop(trackingId,code);
+        try{
+            parcelService.reportParcelHop(trackingId,code);
+        } catch (DALException e) {
+            return ResponseEntity.status(400).body(null);
+        } catch (BLException e) {
+            return ResponseEntity.status(404).body(null);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -79,10 +87,18 @@ public class ParcelApiController implements ParcelApi {
      */
     @Override
     public ResponseEntity<NewParcelInfo> submitParcel(Parcel parcel) {
-        ParcelEntity parcelEntity = ParcelMapper.INSTANCE.parcelDtoToParcelEntity(parcel);
-        parcelService.submitNewParcel(parcelEntity);
-        NewParcelInfo newParcelInfo = ParcelMapper.INSTANCE.parcelEntityToNewParcelInfoDto(parcelEntity);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newParcelInfo);
+        try{
+            ParcelEntity parcelEntity = ParcelMapper.INSTANCE.parcelDtoToParcelEntity(parcel);
+            parcelService.submitNewParcel(parcelEntity);
+            NewParcelInfo newParcelInfo = ParcelMapper.INSTANCE.parcelEntityToNewParcelInfoDto(parcelEntity);
+            return ResponseEntity.status(HttpStatus.CREATED).body(newParcelInfo);
+        }catch (DALException e){
+            return ResponseEntity.status(400).body(null);
+        } catch (BLException e) {
+            return ResponseEntity.status(404).body(null);
+        }
+
+
     }
 
     /**
@@ -95,8 +111,13 @@ public class ParcelApiController implements ParcelApi {
      */
     @Override
     public ResponseEntity<TrackingInformation> trackParcel(String trackingId) {
-        TrackingInformation trackingInformation = parcelService.trackParcel(trackingId);
-        return ResponseEntity.status(200).body(trackingInformation);
+        try{
+            TrackingInformation trackingInformation = parcelService.trackParcel(trackingId);
+            return ResponseEntity.status(200).body(trackingInformation);
+
+        } catch (DALException e) {
+            return ResponseEntity.status(400).body(null);
+        }
     }
 
     /**
@@ -111,7 +132,13 @@ public class ParcelApiController implements ParcelApi {
     @Override
     public ResponseEntity<NewParcelInfo> transitionParcel(String trackingId, Parcel parcel) {
         ParcelEntity parcelEntity=ParcelMapper.INSTANCE.parcelDtoToParcelEntity(parcel);
-        parcelService.transitionParcel(trackingId,parcelEntity);
+        try{
+            parcelService.transitionParcel(trackingId,parcelEntity);
+        }catch (BLException e){
+            return ResponseEntity.status(409).body(null);
+        } catch (DALException e ) {
+            return ResponseEntity.status(400).body(null);
+        }
         NewParcelInfo newParcelInfo = ParcelMapper.INSTANCE.parcelEntityToNewParcelInfoDto(parcelEntity);
         return ResponseEntity.status(200).body(newParcelInfo);
     }
