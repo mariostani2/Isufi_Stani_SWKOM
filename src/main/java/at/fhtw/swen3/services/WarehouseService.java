@@ -14,6 +14,6 @@ import java.util.Optional;
 public interface WarehouseService{
 
     WarehouseEntity exportWarehouses() throws DALException;
-    HopEntity getWarehouse(String code);
-    void importWarehouse(WarehouseEntity warehouse);
+    HopEntity getWarehouse(String code) throws DALException;
+    void importWarehouse(WarehouseEntity warehouse) throws DALException;
 }

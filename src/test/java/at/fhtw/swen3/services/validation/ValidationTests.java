@@ -16,53 +16,53 @@ import java.time.OffsetDateTime;
 import java.util.LinkedList;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ValidationTests {
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     Validator validator = factory.getValidator();
 
-//    @Test
-//    void parcelEntityValidationTest(){
-//        RecipientEntity recipient=RecipientEntity.builder().build();
-//        recipient.setName("recip");
-//        ParcelEntity parcelEntity=new ParcelEntity();
-//        parcelEntity.setSender(RecipientEntity.builder().build());
-//        parcelEntity.setRecipient(RecipientEntity.builder().build());
-//        parcelEntity.setFutureHops(new LinkedList<>());
-//
-//        parcelEntity.setTrackingId("RD4343");//validator violation
-//
-//        parcelEntity.setVisitedHops(new LinkedList<>());
-//        parcelEntity.setState(ParcelEntity.StateEnum.DELIVERED);
-//
-//        Set<ConstraintViolation<ParcelEntity>> violations = validator.validate(parcelEntity);
-////        for (ConstraintViolation<ParcelEntity> violation : violations) {
-////            System.out.println(violation.getMessage());
-////        }
-//        assertEquals(1,violations.size());
-//    }
+    @Test
+    void parcelEntityValidationTest(){
+        RecipientEntity recipient=RecipientEntity.builder().build();
+        recipient.setName("recip");
+        ParcelEntity parcelEntity=new ParcelEntity();
+        parcelEntity.setSender(RecipientEntity.builder().build());
+        parcelEntity.setRecipient(RecipientEntity.builder().build());
+        parcelEntity.setFutureHops(new LinkedList<>());
 
-//    @Test
-//    void recipientEntityValidationAustriaTestFalse(){
-//        RecipientEntity recipient= RecipientEntity.builder().name("Reldi").country("Austria").build();
-//       assertEquals(false,recipient.isValid());
-//    }
-//
-//    @Test
-//    void recipientEntityValidationOesterreichTest(){
-//        RecipientEntity recipient= RecipientEntity.builder().name("Mario").country("Österreich").build();
-//        assertEquals(false,recipient.isValid());
-//
-//    }
-//
-//    @Test
-//    void recipientEntityValidationNotAustriaTest(){
-//        RecipientEntity recipient=RecipientEntity.builder().country("Germany").build();
+        parcelEntity.setTrackingId("RD4343");
+
+        parcelEntity.setVisitedHops(new LinkedList<>());
+        parcelEntity.setState(ParcelEntity.StateEnum.DELIVERED);
+
+        Set<ConstraintViolation<ParcelEntity>> violations = validator.validate(parcelEntity);
+//        for (ConstraintViolation<ParcelEntity> violation : violations) {
+//            System.out.println(violation.getMessage());
+//        }
+        assertEquals(0,violations.size());
+    }
+
+    @Test
+    void recipientEntityValidationAustriaTestFalse(){
+        RecipientEntity recipient= RecipientEntity.builder().name("Reldi").country("Austria").build();
+        assert(validator.validate(recipient).size()>0);
+
+    }
+
+    @Test
+    void recipientEntityValidationOesterreichTest(){
+        RecipientEntity recipient= RecipientEntity.builder().name("Mario").country("Österreich").build();
+        assert(validator.validate(recipient).size()>0);
+
+    }
+
+    @Test
+    void recipientEntityValidationNotAustriaTest(){
+        RecipientEntity recipient=RecipientEntity.builder().country("Germany").build();
 //        assertEquals(true,recipient.isValid());
-//
-//    }
+
+    }
 
     @Test
     void hopArrivalEntityValidationTest(){

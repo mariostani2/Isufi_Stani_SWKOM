@@ -1,8 +1,10 @@
 package at.fhtw.swen3.services.impl;
 
 import at.fhtw.swen3.gps.service.impl.NominatimGeoService;
+import at.fhtw.swen3.persistence.DALException;
 import at.fhtw.swen3.persistence.entities.*;
 import at.fhtw.swen3.persistence.repositories.*;
+import at.fhtw.swen3.services.BLException;
 import at.fhtw.swen3.services.ParcelService;
 import at.fhtw.swen3.services.dto.*;
 import at.fhtw.swen3.services.mapper.ParcelMapper;
@@ -51,7 +53,6 @@ public class ParcelServiceImpl implements ParcelService {
 
 
 
-
     @Override
     public void reportParcelDelivery(String trackingId) {
         Optional<ParcelEntity> parcel = parcelRepository.findByTrackingId(trackingId);
@@ -63,44 +64,64 @@ public class ParcelServiceImpl implements ParcelService {
     }
 
     @Override
-    public void reportParcelHop(String trackingId, String code) {
-        Optional<ParcelEntity> parcel = parcelRepository.findByTrackingId(trackingId);
-        List<HopArrivalEntity> hopArrivalEntities=parcel.get().getFutureHops();
-        HopArrivalEntity hopArrival=hopArrivalRepository.findFirstByCode(code).get();
-        hopArrival.setVisited(true);
-        hopArrivalRepository.save(hopArrival);
-
-        HopEntity hop=hopRepository.getFirstByCode(code).get();
-        switch(hop.getHopType()) {
-            case "truck":
-                parcel.get().setState(ParcelEntity.StateEnum.INTRUCKDELIVERY);
-                break;
-            case "warehouse":
-                parcel.get().setState(ParcelEntity.StateEnum.INTRANSPORT);
-                break;
-            case "warehousetransfer":
-                TransferwarehouseEntity transferwarehouse=transferwarehouseRepository.findTransferwarehouseEntitiesByCode(hop.getCode()).get();
-                callPartnerService(transferwarehouse.getLogisticsPartnerUrl(),parcel.get().getTrackingId());
-                parcel.get().setState(ParcelEntity.StateEnum.TRANSFERRED);
+    public void reportParcelHop(String trackingId, String code) throws DALException, BLException {
+        ParcelEntity parcel;
+        try {
+            Optional<ParcelEntity> parcelOpt = parcelRepository.findByTrackingId(trackingId);
+            parcel=parcelOpt.get();
+        }catch (Exception e) {
+            throw new BLException();
         }
-        parcelRepository.save(parcel.get());
+        try{
+            HopArrivalEntity hopArrival=hopArrivalRepository.findFirstByParcelAndCodeAndVisited(parcel, code, false).get();
+            hopArrival.setVisited(true);
+            hopArrivalRepository.save(hopArrival);
+
+            HopEntity hop=hopRepository.getFirstByCode(code).get();
+            switch(hop.getHopType()) {
+                case "truck":
+                    parcel.setState(ParcelEntity.StateEnum.INTRUCKDELIVERY);
+                    break;
+                case "warehouse":
+                    parcel.setState(ParcelEntity.StateEnum.INTRANSPORT);
+                    break;
+                case "transferwarehouse":
+                    TransferwarehouseEntity transferwarehouse=transferwarehouseRepository.findTransferwarehouseEntitiesByCode(hop.getCode()).get();
+                    callPartnerService(transferwarehouse.getLogisticsPartnerUrl(),parcel.getTrackingId());
+                    parcel.setState(ParcelEntity.StateEnum.TRANSFERRED);
+            }
+            parcelRepository.save(parcel);
+        }catch (Exception e){
+            throw new DALException();
+        }
+
     }
 
     @Override
-    public void submitNewParcel(ParcelEntity parcelEntity) {
-
+    public void submitNewParcel(ParcelEntity parcelEntity) throws DALException, BLException {
+    try {
         parcelEntity.setVisitedHops(new LinkedList<>());
         parcelEntity.setFutureHops(getFutureHops(parcelEntity));
-
         parcelEntity.setState(ParcelEntity.StateEnum.PICKUP);
         String trackingId = RandomStringUtils.randomAlphabetic(9);
         parcelEntity.setTrackingId(trackingId.toUpperCase());
+    }catch (Exception e){
+        log.error("Sumbit parcel failed: BL");
+        throw new BLException();
+
+    }
+    try{
         recipientRepository.save(parcelEntity.getRecipient());
         recipientRepository.save(parcelEntity.getSender());
         parcelRepository.save(parcelEntity);
         hopArrivalRepository.saveAll(parcelEntity.getFutureHops());
 
         log.info("New Parcel added, trackingId: "+parcelEntity.getTrackingId());
+    }catch (Exception e){
+        log.error("Submit Parcel failed: DAL");
+        throw new DALException();
+    }
+
     }
 
     private List<HopArrivalEntity> getFutureHops(ParcelEntity parcelEntity) {
@@ -179,33 +200,47 @@ public class ParcelServiceImpl implements ParcelService {
     }
 
     @Override
-    public TrackingInformation trackParcel(String trackingId) {
+    public TrackingInformation trackParcel(String trackingId) throws DALException {
         try{
             Optional<ParcelEntity> parcel = parcelRepository.findByTrackingId(trackingId);
             return ParcelMapper.INSTANCE.parcelEntityToTrackingInformationDto(parcel.get());
         }catch (Exception e){
-            return null;
+            throw new DALException();
         }
 
     }
 
     @Override
-    public void transitionParcel(String trackingId, ParcelEntity parcelEntity) {
-        parcelEntity.setVisitedHops(new LinkedList<>());
-        parcelEntity.setFutureHops(getFutureHops(parcelEntity));
-        parcelEntity.setState(ParcelEntity.StateEnum.PICKUP);
-        parcelEntity.setTrackingId(trackingId.toUpperCase());
-        recipientRepository.save(parcelEntity.getRecipient());
-        recipientRepository.save(parcelEntity.getSender());
-        parcelRepository.save(parcelEntity);
-        hopArrivalRepository.saveAll(parcelEntity.getFutureHops());
+    public void transitionParcel(String trackingId, ParcelEntity parcelEntity) throws BLException, DALException {
+        try{
+            parcelEntity.setVisitedHops(new LinkedList<>());
+            parcelEntity.setFutureHops(getFutureHops(parcelEntity));
+            parcelEntity.setState(ParcelEntity.StateEnum.PICKUP);
+            parcelEntity.setTrackingId(trackingId.toUpperCase());
+        }catch (Exception e){
+            throw new BLException();
+        }
+        try{
+            recipientRepository.save(parcelEntity.getRecipient());
+            recipientRepository.save(parcelEntity.getSender());
+            parcelRepository.save(parcelEntity);
+            hopArrivalRepository.saveAll(parcelEntity.getFutureHops());
+
+            log.info("Parcel "+parcelEntity.getTrackingId()+" transfered");
+        }catch (Exception e){
+            throw new DALException();
+        }
 
     }
 
 
     public void callPartnerService(String partnerUrl,String trackingId) {
-        WebClient webClient = WebClient.create(partnerUrl+"/parcel/"+trackingId);
-        Object request = new Object();
-        webClient.post().bodyValue(request).retrieve().bodyToMono(Object.class).block();
+        try{
+            WebClient webClient = WebClient.create(partnerUrl+"/parcel/"+trackingId);
+            Object request = new Object();
+            webClient.post().bodyValue(request).retrieve().bodyToMono(Object.class).block();
+        }catch (Exception e) {
+            log.error("transfer Parcel failed: Partner URL call unsuccessful");
+        }
     }
 }

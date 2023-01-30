@@ -76,8 +76,12 @@ public class WarehouseApiController implements WarehouseApi {
      */
     @Override
     public ResponseEntity<Hop> getWarehouse(String code) {
-        HopEntity hopEntity=warehouseService.getWarehouse(code);
-        return ResponseEntity.ok(HopMapper.INSTANCE.entityToDto(hopEntity));
+        try{
+            HopEntity hopEntity=warehouseService.getWarehouse(code);
+            return ResponseEntity.ok(HopMapper.INSTANCE.entityToDto(hopEntity));
+        } catch (DALException e) {
+            return ResponseEntity.status(400).body(null);
+        }
     }
 
     /**
@@ -89,12 +93,13 @@ public class WarehouseApiController implements WarehouseApi {
      */
     @Override
     public ResponseEntity<Void> importWarehouses(Warehouse warehouse) {
+        try{
+            WarehouseEntity warehouseEntity = WarehouseMapper.INSTANCE.dtoToEntity(warehouse);
+            warehouseService.importWarehouse(warehouseEntity);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (DALException e) {
+            return ResponseEntity.status(400).body(null);
+        }
 
-        WarehouseEntity warehouseEntity = WarehouseMapper.INSTANCE.dtoToEntity(warehouse);
-
-       // warehouse.nextHops()
-
-        warehouseService.importWarehouse(warehouseEntity);
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

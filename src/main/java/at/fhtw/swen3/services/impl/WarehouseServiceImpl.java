@@ -23,23 +23,22 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Autowired
     private final WarehouseRepository warehouseRepository;
-    @Autowired
-    private final WarehouseNextHopsRepository warehouseNextHopsRepository;
+//    @Autowired
+//    private final WarehouseNextHopsRepository warehouseNextHopsRepository;
     @Autowired
     private HopRepository hopRepository;
-    @Autowired
-    private TruckRepository truckRepository;
-
-
-    @Autowired
-    private TransferwarehouseRepository transferwarehouseRepository;
-    @Autowired
-    private GeoCoordinateRepository geoCoordinateRepository;
+//    @Autowired
+//    private TruckRepository truckRepository;
+//
+//
+//    @Autowired
+//    private TransferwarehouseRepository transferwarehouseRepository;
+//    @Autowired
+//    private GeoCoordinateRepository geoCoordinateRepository;
 
     private void dropDB() {
-
         warehouseRepository.deleteAll();
-
+        log.info("Warehouses erased");
     }
 
 
@@ -51,15 +50,28 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
-    public HopEntity getWarehouse(String code) {
-        var result = hopRepository.getFirstByCode(code);
-        return result.get();
+    public HopEntity getWarehouse(String code) throws DALException {
+        try{
+            var result = hopRepository.getFirstByCode(code);
+            return result.get();
+        }
+        catch (Exception e){
+            log.error("Could not get Hop with code: "+code);
+            throw new DALException();
+        }
+
     }
 
     @Override
-    public void importWarehouse(WarehouseEntity warehouseEntity) {
-        dropDB();
-        warehouseRepository.save(warehouseEntity);
+    public void importWarehouse(WarehouseEntity warehouseEntity) throws DALException {
+        try{
+            dropDB();
+            warehouseRepository.save(warehouseEntity);
+            log.info("Warehouses imported!");
+        }catch (Exception e){
+            log.error("Import warehouses failed");
+            throw new DALException();
+        }
     }
 
 
